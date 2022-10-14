@@ -1,3 +1,47 @@
+<?php
+
+session_start();
+include "../koneksi/koneksi.php";
+
+if (isset($_POST['submit'])) {
+
+    if (empty($_POST["username"]) || empty($_POST["password"])) {
+        $gagal = "Username dan Password tidak boleh kosong!!";
+        echo $gagal;
+    } else {
+
+        $username = mysqli_real_escape_string($koneksi, $_POST["username"]);
+        $password = mysqli_real_escape_string($koneksi, $_POST["password"]);
+
+        $query = mysqli_query($koneksi, "select * from user WHERE username = '$username'");
+        if (mysqli_affected_rows($koneksi) == 0) {
+            $gagal = "Log In Gagal";
+            echo $gagal;
+        } else {
+            $result = mysqli_fetch_assoc($query);
+
+            if (password_verify($password, $result["password"])) {
+                if ($result['level'] == "kanwil") {
+                    $_SESSION['username'] = $username;
+                    $_SESSION['level'] = $result['level'];
+                    header("location:../kanwil/dashboard_kanwil.php");
+                } else if ($result['level'] == "kab/kota") {
+                    $_SESSION['username'] = $username;
+                    $_SESSION['level'] = $result['level'];
+                    header("location:../kab_kota/dashboard_kab_kota.php");
+                } else {
+                    $gagal = "Anda Harus Log In Terlebih Dahulu";
+                    echo $gagal;
+                }
+            } else {
+                $gagal = "Log In Gagal";
+                echo $gagal;
+            }
+        }
+    }
+}
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
