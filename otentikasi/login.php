@@ -29,6 +29,11 @@ if (isset($_POST['submit'])) {
                     $_SESSION['level'] = $result['level'];
                     $link = "../kab_kota/dashboard_kab_kota.php";
                     $berhasil = "Login Berhasil";
+                } else if ($result['level'] == "ppiu") {
+                    $_SESSION['username'] = $username;
+                    $_SESSION['level'] = $result['level'];
+                    $link = "../ppiu/dashboard_ppiu.php";
+                    $berhasil = "Login Berhasil";
                 } else {
                     $gagal = "Anda Harus Log In Terlebih Dahulu";
                 }
@@ -52,6 +57,8 @@ if (isset($_POST['submit'])) {
     <meta name="author" content="">
 
     <title>Login</title>
+
+    <link rel="icon" type="image/png" href="../images/logo_kemenag.png">
 
     <!-- Custom fonts for this template-->
     <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
