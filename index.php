@@ -1,3 +1,3 @@
-<?php 
+<?php
 
-echo "tes";
+header("location:otentikasi/login.php");

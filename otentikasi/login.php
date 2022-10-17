@@ -22,11 +22,13 @@ if (isset($_POST['submit'])) {
                 if ($result['level'] == "kanwil") {
                     $_SESSION['username'] = $username;
                     $_SESSION['level'] = $result['level'];
-                    header("location:../kanwil/dashboard_kanwil.php");
+                    $link = "../kanwil/dashboard_kanwil.php";
+                    $berhasil = "Login Berhasil";
                 } else if ($result['level'] == "kab/kota") {
                     $_SESSION['username'] = $username;
                     $_SESSION['level'] = $result['level'];
-                    header("location:../kab_kota/dashboard_kab_kota.php");
+                    $link = "../kab_kota/dashboard_kab_kota.php";
+                    $berhasil = "Login Berhasil";
                 } else {
                     $gagal = "Anda Harus Log In Terlebih Dahulu";
                 }
@@ -98,9 +100,20 @@ if (isset($_POST['submit'])) {
                                             </script>
                                         <?php
                                         }
-                                        if (isset($_GET['pesan'])) {
                                         ?>
-                                            <p class="text-info pull-middle"><?php echo "Silakan Log In Terlebih Dahulu!"; ?></p>
+                                        <?php
+                                        if (isset($berhasil)) {
+                                        ?>
+                                            <script>
+                                                swal.fire({
+                                                    icon: 'success',
+                                                    showConfirmButton: false,
+                                                    timer: '1500',
+                                                    title: '<?php echo $berhasil; ?>'
+                                                }).then((result) => {
+                                                    window.location = '<?php echo $link; ?>'
+                                                })
+                                            </script>
                                         <?php
                                         }
                                         ?>
