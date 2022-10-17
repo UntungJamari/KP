@@ -7,7 +7,6 @@ if (isset($_POST['submit'])) {
 
     if (empty($_POST["username"]) || empty($_POST["password"])) {
         $gagal = "Username dan Password tidak boleh kosong!!";
-        echo $gagal;
     } else {
 
         $username = mysqli_real_escape_string($koneksi, $_POST["username"]);
@@ -15,8 +14,7 @@ if (isset($_POST['submit'])) {
 
         $query = mysqli_query($koneksi, "select * from user WHERE username = '$username'");
         if (mysqli_affected_rows($koneksi) == 0) {
-            $gagal = "Log In Gagal";
-            echo $gagal;
+            $gagal = "Username Tidak Ditemukan";
         } else {
             $result = mysqli_fetch_assoc($query);
 
@@ -31,11 +29,9 @@ if (isset($_POST['submit'])) {
                     header("location:../kab_kota/dashboard_kab_kota.php");
                 } else {
                     $gagal = "Anda Harus Log In Terlebih Dahulu";
-                    echo $gagal;
                 }
             } else {
-                $gagal = "Log In Gagal";
-                echo $gagal;
+                $gagal = "Password Salah";
             }
         }
     }
@@ -62,6 +58,10 @@ if (isset($_POST['submit'])) {
     <!-- Custom styles for this template-->
     <link href="../css/sb-admin-2.min.css" rel="stylesheet">
 
+    <!-- Sweetalert2 -->
+    <link rel="stylesheet" href="../plugin/sweetalert2/sweetalert2.min.css">
+    <script src="../plugin/sweetalert2/sweetalert2.min.js"></script>
+
 </head>
 
 <body class="background">
@@ -85,6 +85,25 @@ if (isset($_POST['submit'])) {
                                     </div>
                                     <div class="text-center mt-5">
                                         <h1 class="h4 text-gray-900 mb-4">Selamat Datang di Sistem Informasi Pengawasan Umrah Sumatera Barat</h1>
+                                        <?php
+                                        if (isset($gagal)) {
+                                        ?>
+                                            <script>
+                                                swal.fire({
+                                                    icon: 'error',
+                                                    showConfirmButton: false,
+                                                    timer: '1500',
+                                                    title: '<?php echo $gagal; ?>'
+                                                })
+                                            </script>
+                                        <?php
+                                        }
+                                        if (isset($_GET['pesan'])) {
+                                        ?>
+                                            <p class="text-info pull-middle"><?php echo "Silakan Log In Terlebih Dahulu!"; ?></p>
+                                        <?php
+                                        }
+                                        ?>
                                     </div>
                                     <div class="form-group mt-5">
                                         <input type="username" name="username" class="form-control form-control-user" placeholder="Masukkan Username">
@@ -92,7 +111,7 @@ if (isset($_POST['submit'])) {
                                     <div class="form-group">
                                         <input type="password" name="password" class="form-control form-control-user" placeholder="Masukkan Password">
                                     </div>
-                                    <button class="btn btn-success btn-user btn-block" name="submit" type="submit">
+                                    <button class="btn btn-success btn-user btn-block" id="btn-login" name="submit" type="submit">
                                         Login
                                     </button>
                                     <br>
@@ -114,6 +133,7 @@ if (isset($_POST['submit'])) {
 
     <!-- Custom scripts for all pages-->
     <script src="js/sb-admin-2.min.js"></script>
+
 </body>
 
 </html>
