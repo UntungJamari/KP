@@ -56,9 +56,8 @@ if (isset($_POST['submit'])) {
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Login</title>
-
     <link rel="icon" type="image/png" href="../images/logo_kemenag.png">
+    <title>Login</title>
 
     <!-- Custom fonts for this template-->
     <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
