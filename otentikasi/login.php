@@ -132,6 +132,8 @@ if (isset($_POST['submit'])) {
                                                     showConfirmButton: false,
                                                     timer: '2000',
                                                     title: 'Silakan Login Terlebih Dahulu'
+                                                }).then((result) => {
+                                                    window.location = 'login.php'
                                                 })
                                             </script>
                                         <?php

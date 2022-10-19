@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 19, 2022 at 04:15 AM
+-- Generation Time: Oct 19, 2022 at 05:10 AM
 -- Server version: 10.4.6-MariaDB
 -- PHP Version: 7.3.8
 
@@ -114,7 +114,12 @@ INSERT INTO `ppiu` (`id_ppiu`, `username`, `nama_ppiu`, `id_kab_kota`, `status`,
 (18, 'lci_pdg', 'PT. Labbaika Cipta Imani', 14, 'Pusat', 'No.261 Tahun 2018', '2018-05-02', 'Jl.Irian No.2 Kel. Ulak Karang Kec. Padang Utara Kota Padang'),
 (19, 'bsm_pdgpj', 'PT. Bumi Serambi Mekah', 15, 'Pusat', 'No. U. 275 Tahun 2020', '2023-09-07', 'Jl. M. Yamin No.163 Rt 01 Rw 00 Kel.Silaing Atas Kec.Padang Panjang Kota Padang Panjang'),
 (20, 'hbas_slkslt', 'PT. Holiday Bumi Alam Surambi', 11, 'Pusat', '02200075501540001', '2022-04-03', 'Jorong Mantirai Pulakek Koto Baru Kec.Sungai Pagu Kab.Solok Selatan'),
-(21, 'sit_dhr', 'PT. Saudi Islamic Tour', 2, 'Pusat', '10062200283780007', '2022-08-02', 'Jl. Lintas Sumatera Jorong Pasa Pagi Kel.Sungai Rumbai Timur Kec.Sungai Rumbai Kab.Dharmasraya');
+(21, 'sit_dhr', 'PT. Saudi Islamic Tour', 2, 'Pusat', '10062200283780007', '2022-08-02', 'Jl. Lintas Sumatera Jorong Pasa Pagi Kel.Sungai Rumbai Timur Kec.Sungai Rumbai Kab.Dharmasraya'),
+(22, 'pwn_bkt', 'PT. Penjuru Wisata Negeri', 13, 'Cabang', '259 Tahun 2017', '2017-11-06', 'Jl. H. Miskin RT.03/RW.03 Kel. Campago Ipuh, Kec. Mandiangin Koto Selayan Kota Bukittinggi'),
+(23, 'mtt_bkt', 'PT. Musafir Tour & Travel ', 13, 'Cabang', '144 Tahun 2018', '2018-03-29', 'Jl. Veteran No. 27 RT.002/RW.002 Kel. Puhun Tembok Kec. Mandiangin Koto Selayan, Kota Bukittinggi '),
+(24, 'rautt_bkt', 'PT. Raka Amal Utama Tours & Travel', 13, 'Cabang', '220 Tahun 2018', '2018-05-22', 'Jl. M. Syafe\'i No. 7 D RT. 03 RW. 01 Kel. Tarok Dipo Kec. Guguk Panjang Kota Bukittinggi'),
+(25, 'set_bkt', 'PT. Sela Express Tour ', 13, 'Cabang', '390 Tahun 2019', '2019-09-26', 'Jl. Hamka No. 25 Kel. Pakan Kurai Kec. Guguk Panjang Kota Bukiitinggi'),
+(26, 'aftt_bkt', 'PT. Al Falah Tour And Travel', 13, 'Cabang', '420 Tahun 2019', '2019-10-21', 'Jl. Syech Ibrahim Musa No. 1 RT. 01 RW. 01 Kel. Aur Tajungkang Tengah Sawah Kec. Guguk Panjang Bukittinggi');
 
 -- --------------------------------------------------------
 
@@ -133,6 +138,7 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`username`, `password`, `level`) VALUES
+('aftt_bkt', '$2y$10$pneYi2Pfc.CoDM8xek9tRu5rW4/1fKvgB7wml59cF8Nxl6jpHgsPW', 'ppiu'),
 ('ahw_pasbar', '$2y$10$BXYGxMqdTBqeDtlv7Hgncuc.ZnfRDnOnVGUZAJZQzRqtrXrfKTryq', 'ppiu'),
 ('ajt_pdg', '$2y$10$M.CiNL0F4wwGnJIxK.TfAeJcdqjADcAZ./ImpiJFZzzGrLOKIlB1u', 'ppiu'),
 ('amu_pdg', '$2y$10$w.3Gn45F28mR6eYjlGMf5ONtFtRgTo2w.wV..f3OyFrxf5KUDCETy', 'ppiu'),
@@ -164,10 +170,14 @@ INSERT INTO `user` (`username`, `password`, `level`) VALUES
 ('kemenag_tanahdatar', '$2y$10$ZkitYBW3PapR/d6VtCJZs.F4.Ev2GqK8Jpf35FSpPzb1oeXVDTHUC', 'kab/kota'),
 ('lci_pdg', '$2y$10$9B4.NlX/xjgIW2j.nOS6Mec8TiwPhXxR4Y/fiBLiCME4101IGsGn.', 'ppiu'),
 ('mftt_agm', '$2y$10$fM4OU3QqEuy5Z/zDAFpKLunABsypaT7xowgAYcklN9agkYXBQcfJi', 'ppiu'),
+('mtt_bkt', '$2y$10$52bjQQfd3TECltrPXsDNdOn/OoVeP7RZiMY9KCfV6qEj2ioWb1fJu', 'ppiu'),
 ('oad_pdg', '$2y$10$dwVvKJQtcS33NxBYkhSpbOefvroiQJ/4RAl7LTB57fs/G5Z8YeUCe', 'ppiu'),
+('pwn_bkt', '$2y$10$5B2SGPpCXWbHN2kuKAjilui0P4QwEz9bZXlkdKF9B5J5A8xR6IvGi', 'ppiu'),
 ('pwn_pdg', '$2y$10$PW6Rg35/8UfyTca5JzZz3O6nj12dq95DrHkjkInsxv1r0p1epXZj2', 'ppiu'),
 ('ram_bkt', '$2y$10$v6PphHv6/LH1IKxy2ecni.wVvHUJhKMdZs495q3oe2BrJUaI1bXd.', 'ppiu'),
+('rautt_bkt', '$2y$10$2Y3WGRAAfgdIlsN6LicYO.S65KWkZlYQ8XvgCP9ObF.gw8Zd0INHC', 'ppiu'),
 ('rb_pdg', '$2y$10$tyVIfZyJQ.vmYvOwuSKi2eQ7HpUVii0kusnfhv5ci2x6LXHdGzgGq', 'ppiu'),
+('set_bkt', '$2y$10$l7Zwg7xxkXtfDIeylLMqv.qh7UVKWCzMTy8y4/Z3bPa.v567a7K6S', 'ppiu'),
 ('sih_pdg', '$2y$10$GvPXxL1inRzHXU3kVes8yekPHG1Man3gI6adLsehsw17/Enjj910G', 'ppiu'),
 ('sitt_pdg', '$2y$10$2CGm.Y1dT4721Hg66wDwkuka06AAVzqigWYnF28w8rMF9pg288tOS', 'ppiu'),
 ('sit_dhr', '$2y$10$4qXBd/EVmfUJisUlZgSI.etWhFXschH9H3DQvsosBJd59q8aFLoUe', 'ppiu'),
@@ -226,7 +236,7 @@ ALTER TABLE `kemenag_kab_kota`
 -- AUTO_INCREMENT for table `ppiu`
 --
 ALTER TABLE `ppiu`
-  MODIFY `id_ppiu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id_ppiu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- Constraints for dumped tables

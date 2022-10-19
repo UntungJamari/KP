@@ -37,7 +37,7 @@ include "session_kab_kota.php";
             <!-- Main Content -->
             <div id="content">
 
-                <?php include "header.html"; ?>
+                <?php include "header.php"; ?>
 
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
