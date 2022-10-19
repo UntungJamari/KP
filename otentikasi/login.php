@@ -100,7 +100,7 @@ if (isset($_POST['submit'])) {
                                                 swal.fire({
                                                     icon: 'error',
                                                     showConfirmButton: false,
-                                                    timer: '1500',
+                                                    timer: '2000',
                                                     title: '<?php echo $gagal; ?>'
                                                 })
                                             </script>
@@ -114,10 +114,24 @@ if (isset($_POST['submit'])) {
                                                 swal.fire({
                                                     icon: 'success',
                                                     showConfirmButton: false,
-                                                    timer: '1500',
+                                                    timer: '2000',
                                                     title: '<?php echo $berhasil; ?>'
                                                 }).then((result) => {
                                                     window.location = '<?php echo $link; ?>'
+                                                })
+                                            </script>
+                                        <?php
+                                        }
+                                        ?>
+                                        <?php
+                                        if (isset($_GET['user'])) {
+                                        ?>
+                                            <script>
+                                                swal.fire({
+                                                    icon: 'info',
+                                                    showConfirmButton: false,
+                                                    timer: '2000',
+                                                    title: ' Harap Login Terlebih Dahulu Sebagai <?php echo $_GET['user']; ?>'
                                                 })
                                             </script>
                                         <?php
