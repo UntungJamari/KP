@@ -131,7 +131,7 @@ if (isset($_POST['submit'])) {
                                                     icon: 'info',
                                                     showConfirmButton: false,
                                                     timer: '2000',
-                                                    title: ' Harap Login Terlebih Dahulu Sebagai <?php echo $_GET['user']; ?>'
+                                                    title: 'Silakan Login Terlebih Dahulu'
                                                 })
                                             </script>
                                         <?php
