@@ -15,8 +15,8 @@
             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">
                     <?php
-                    $_SESSION['username'] = ucwords(str_replace("_", " ", $_SESSION['username']));
-                    echo $_SESSION['username'];
+                    $username_h = ucwords(str_replace("_", " ", $_SESSION['username']));
+                    echo $username_h;
                     ?>
                 </span>
                 <img class="img-profile rounded-circle" src="../images/profile/default.png">
@@ -66,8 +66,8 @@
     <script src="../js/sb-admin-2.min.js"></script>
 
     <!-- Page level plugins -->
-    <script src="../vendor/datatables/jquery.dataTables.min.js"></script>
-    <script src="../vendor/datatables/dataTables.bootstrap4.min.js"></script>
+    <script src="../plugin/datatables/jquery.dataTables.min.js"></script>
+    <script src="../plugin/datatables/dataTables.bootstrap5.min.js"></script>
 
     <!-- Page level custom scripts -->
     <script src="../js/demo/datatables-demo.js"></script>
