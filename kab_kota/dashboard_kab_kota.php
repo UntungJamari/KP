@@ -48,7 +48,6 @@ include "session_kab_kota.php";
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <h1 class="h3 mb-0 text-gray-800">PPIU</h1>
-                        <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
                     </div>
 
                     <!-- Content Row -->
@@ -64,6 +63,10 @@ include "session_kab_kota.php";
                                 </div>
                                 <!-- Card Body -->
                                 <div class="card-body">
+                                    <a href="tambah_ppiu.php" type="button" class="btn btn-outline-info mb-3">
+                                        <i class="fas fa-fw fa fa-plus"></i>
+                                        <span>Tambah PPIU</span>
+                                    </a>
                                     <div class="table-responsive">
                                         <?php
 
@@ -79,7 +82,7 @@ include "session_kab_kota.php";
                                                     <th>Nama PPIU</th>
                                                     <th>Status</th>
                                                     <th>No. SK</th>
-                                                    <th>Tanggal SK</th>
+                                                    <th style="width: 15%;">Tanggal SK</th>
                                                     <th>Alamat</th>
                                                 </tr>
                                             </thead>
@@ -94,7 +97,7 @@ include "session_kab_kota.php";
                                                         <td><?php echo $tampil['nama_ppiu']; ?></td>
                                                         <td><?php echo $tampil['status']; ?></td>
                                                         <td><?php echo $tampil['nomor_sk']; ?></td>
-                                                        <td><?php echo $tampil['tanggal_sk']; ?></td>
+                                                        <td><?php echo date('d-m-Y', strtotime($tampil['tanggal_sk'])); ?></td>
                                                         <td><?php echo $tampil['alamat']; ?></td>
                                                     </tr>
                                                 <?php
@@ -118,7 +121,7 @@ include "session_kab_kota.php";
                 <footer class="sticky-footer bg-white">
                     <div class="container my-auto">
                         <div class="copyright text-center my-auto">
-                            <span>Copyright &copy; Kanwil Kemenag Summbar 2022</span>
+                            <span>Copyright &copy; Kanwil Kemenag Sumbar 2022</span>
                         </div>
                     </div>
                 </footer>

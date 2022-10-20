@@ -139,6 +139,22 @@ if (isset($_POST['submit'])) {
                                         <?php
                                         }
                                         ?>
+                                        <?php
+                                        if (isset($_GET['logout'])) {
+                                        ?>
+                                            <script>
+                                                swal.fire({
+                                                    icon: 'info',
+                                                    showConfirmButton: false,
+                                                    timer: '2000',
+                                                    title: 'Berhasil Logout'
+                                                }).then((result) => {
+                                                    window.location = 'login.php'
+                                                })
+                                            </script>
+                                        <?php
+                                        }
+                                        ?>
                                     </div>
                                     <div class="form-group mt-5">
                                         <input type="username" name="username" class="form-control form-control-user" placeholder="Masukkan Username">
