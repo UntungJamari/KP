@@ -32,7 +32,7 @@ include "session_kanwil.php";
     <!-- Page Wrapper -->
     <div id="wrapper">
 
-        <?php include "admin_sidebar.html"; ?>
+        <?php include "sidebar.html"; ?>
 
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
