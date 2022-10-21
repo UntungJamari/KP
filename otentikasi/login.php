@@ -3,6 +3,16 @@
 session_start();
 include "../koneksi/koneksi.php";
 
+if (!empty($_SESSION['level'])) {
+    if ($_SESSION['level'] == "kab/kota") {
+        header("location:../kab_kota/dashboard_kab_kota.php");
+    } else if ($_SESSION['level'] == "ppiu") {
+        header("location:../ppiu/dashboard_ppiu.php");
+    } else if ($_SESSION['level'] == "kanwil") {
+        header("location:../kanwil/dashboard_kanwil.php");
+    }
+}
+
 if (isset($_POST['submit'])) {
 
     if (empty($_POST["username"]) || empty($_POST["password"])) {
