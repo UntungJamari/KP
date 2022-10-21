@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.0.1
+-- version 5.1.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 19, 2022 at 05:10 AM
--- Server version: 10.4.6-MariaDB
--- PHP Version: 7.3.8
+-- Generation Time: Oct 21, 2022 at 05:57 AM
+-- Server version: 10.4.19-MariaDB
+-- PHP Version: 8.0.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -69,8 +68,16 @@ CREATE TABLE `kemenag_kab_kota` (
   `username` varchar(255) NOT NULL,
   `id_kab_kota` int(11) NOT NULL,
   `nama_pimpinan` varchar(255) NOT NULL,
-  `alamat` varchar(255) NOT NULL
+  `alamat` varchar(255) NOT NULL,
+  `logo` varchar(255) NOT NULL DEFAULT 'logo_kemenag.png'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `kemenag_kab_kota`
+--
+
+INSERT INTO `kemenag_kab_kota` (`id_kemenag_kab_kota`, `username`, `id_kab_kota`, `nama_pimpinan`, `alamat`, `logo`) VALUES
+(1, 'kemenag_bukittinggi', 13, '', 'Jl. Bt. Ombilin II No.10, Belakang Balok, Kec. Aur Birugo Tigo Baleh, Kota Bukittinggi, Sumatera Barat 26136', 'logo_kemenag.png');
 
 -- --------------------------------------------------------
 
@@ -86,40 +93,42 @@ CREATE TABLE `ppiu` (
   `status` varchar(255) NOT NULL,
   `nomor_sk` varchar(255) NOT NULL,
   `tanggal_sk` date NOT NULL,
-  `alamat` varchar(255) NOT NULL
+  `alamat` varchar(255) NOT NULL,
+  `nama_pimpinan` varchar(255) DEFAULT NULL,
+  `logo` varchar(255) NOT NULL DEFAULT 'default.png'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `ppiu`
 --
 
-INSERT INTO `ppiu` (`id_ppiu`, `username`, `nama_ppiu`, `id_kab_kota`, `status`, `nomor_sk`, `tanggal_sk`, `alamat`) VALUES
-(1, 'bap_bkt', 'PT. Bonita Anugerah Pratama', 13, 'Pusat', 'No. U.81 Tahun 2020', '2020-03-31', 'Bawah Kantor Dinas Pasar No. 4 Pasar Simpang Aur Bukittinggi Tlp.0752-32520 Fax.0752-32560'),
-(2, 'ram_bkt', 'PT. Rizkia Amanah Mandiri', 13, 'Pusat', 'No. U. 499 Tahun 2020', '2020-12-06', 'Jl. Soekarno Hatta No. 117 RT 002 RW 003 Kel. Manggis Ganting Kec. Mandiangin Koto Selayan Kota Bukittinggi'),
-(3, 'mftt_agm', 'PT. Mahabbah Family Tour dan Travel', 1, 'Pusat', 'No. 9120005970756 Tahun 2022', '2022-01-27', 'Jalan Lintas Lubuk Basung Bukittinggi Jorong Lubuk Anyir RT/RW 00/00 Kel. Bayua Kec. Tanjung Raya Kab. Agam'),
-(4, 'ahw_pasbar', 'PT. Azra Humaira Wisata', 7, 'Pusat', 'No.410 Tahun 2020', '2020-11-08', 'JI. Jenderal  Sudirman Jorong Simpang Ampek_Lingkuang Aua Kec.Pasaman Kab.Pasaman Barat'),
-(5, 'sih_pdg', 'PT. Sianok Indah Holiday ', 14, 'Pusat', 'No. U.81 Tahun 2020', '2021-08-02', 'Jl. Prof. DR. Hamka No.44 RT.1 RW.2 Kelurahan Air Tawar Barat Kecamatan Padang Utara Kota Padang.'),
-(6, 'ajt_pdg', 'PT.Armindo Jaya Tur', 14, 'Pusat', 'NO.U. 62 Tahun 2020', '2020-03-31', 'Jl. Bandar Purus No.72 Kelurahan Ujung Gurun Kecamatan Padang Barat.'),
-(7, 'pwn_pdg', 'PT. Penjuru Wisata Negeri', 14, 'Pusat', 'No.622 Tahun 2019', '2019-07-02', 'Jl. By PassKM.13 RT.03 RW.05 Kel. Sungai Sapih Kec. Kuranji Kota Padang.'),
-(8, 'bpwaza_pdg', 'PT. BPW Alhaadi Ziarah Andalas', 14, 'Pusat', 'No.U 413 tahun 2020', '2020-11-08', 'Jl. Prof. DR. Hamka No.44 RT.1 RW.2 Kelurahan Parupuak Tabing Kecamatan Koto Tangah Kota Padang.'),
-(9, 'fu_pdg', 'PT.Fahmi Utama ', 14, 'Pusat', 'No. U 355 Tahun 2020', '2020-10-17', 'Jl. Raden Shaleh No.52 RT.004 RW.003 Padang Barat Kota Padang'),
-(10, 'uhi_pdg', 'PT. Udacs Holiday Indonesia', 14, 'Pusat', 'No.444 Tahun 2017', '2017-07-13', 'Jl. Ir Juanda no.79 Komp Hotel Pengeran Beach Padang Kel.Flamboyan Baru Kec. Padang Barat.'),
-(11, 'rb_pdg', 'PT. Rindu Baitullah', 14, 'Pusat', 'No. 51 Tahun 2018', '2018-02-09', 'Jl. Mangga Raya No. 52 RT.06 RW.10 Perumnas Belimbing Kec.Kuranji Kota Padang.'),
-(12, 'tpw_pdg', 'PT. Tridaya Pesona Wisata', 14, 'Pusat', 'No.139 Tahun 218', '2018-03-01', 'Jl. S. Parman No. 90 D Kel. Lolong Belanti Kecamatan Padang Utara Kota Padang'),
-(13, 'cbm_pdg', 'PT. Cordoba Berkah Mandiri', 14, 'Pusat', 'No.U.127 Tahun 2020', '2020-06-15', 'Jl. Kampung Kalawi Barat No.4 RT.002 RW.007 Kel. Lubuk Lintah Kecamatan Kuranji Kota Padang'),
-(14, 'amu_pdg', 'PT. Azhar Mitra Utama', 14, 'Pusat', 'No.U.151 Tahun 2020', '2020-06-15', 'Jl. Sawahan No. 55 Kel. Sawahan Kecamatan Padang Timur'),
-(15, 'oad_pdg', 'PT. Ontiket Amanah Digita', 14, 'Pusat', 'No.U. 315 Tahun 2020', '2020-09-24', 'Jl. Adinegoro No.33 Rt.004 RW.008 Batang Kabung Ganting Kecamatan Koto Tangah Kota Padang.'),
-(16, 'sitt_pdg', 'PT. Sukses Internasional Tour and Travel', 14, 'Pusat', 'No.U.292 Tahun 2020', '2020-09-24', 'Jl. Ir. Juanda No.49 RT.001 RW.004 Kel. Flamboyan Baru Kec. Padang Barat Kota Padang'),
-(17, 'anr_pdg', 'PT. Arabia Nusantara Raya', 14, 'Pusat', 'No.U.450 Tahun 2021', '2021-10-14', 'Jl.Prof.Dr.Hamka  No.139 D Kel. Parupuak Tabing Kec. Koto Tangah Kota Padang.'),
-(18, 'lci_pdg', 'PT. Labbaika Cipta Imani', 14, 'Pusat', 'No.261 Tahun 2018', '2018-05-02', 'Jl.Irian No.2 Kel. Ulak Karang Kec. Padang Utara Kota Padang'),
-(19, 'bsm_pdgpj', 'PT. Bumi Serambi Mekah', 15, 'Pusat', 'No. U. 275 Tahun 2020', '2023-09-07', 'Jl. M. Yamin No.163 Rt 01 Rw 00 Kel.Silaing Atas Kec.Padang Panjang Kota Padang Panjang'),
-(20, 'hbas_slkslt', 'PT. Holiday Bumi Alam Surambi', 11, 'Pusat', '02200075501540001', '2022-04-03', 'Jorong Mantirai Pulakek Koto Baru Kec.Sungai Pagu Kab.Solok Selatan'),
-(21, 'sit_dhr', 'PT. Saudi Islamic Tour', 2, 'Pusat', '10062200283780007', '2022-08-02', 'Jl. Lintas Sumatera Jorong Pasa Pagi Kel.Sungai Rumbai Timur Kec.Sungai Rumbai Kab.Dharmasraya'),
-(22, 'pwn_bkt', 'PT. Penjuru Wisata Negeri', 13, 'Cabang', '259 Tahun 2017', '2017-11-06', 'Jl. H. Miskin RT.03/RW.03 Kel. Campago Ipuh, Kec. Mandiangin Koto Selayan Kota Bukittinggi'),
-(23, 'mtt_bkt', 'PT. Musafir Tour & Travel ', 13, 'Cabang', '144 Tahun 2018', '2018-03-29', 'Jl. Veteran No. 27 RT.002/RW.002 Kel. Puhun Tembok Kec. Mandiangin Koto Selayan, Kota Bukittinggi '),
-(24, 'rautt_bkt', 'PT. Raka Amal Utama Tours & Travel', 13, 'Cabang', '220 Tahun 2018', '2018-05-22', 'Jl. M. Syafe\'i No. 7 D RT. 03 RW. 01 Kel. Tarok Dipo Kec. Guguk Panjang Kota Bukittinggi'),
-(25, 'set_bkt', 'PT. Sela Express Tour ', 13, 'Cabang', '390 Tahun 2019', '2019-09-26', 'Jl. Hamka No. 25 Kel. Pakan Kurai Kec. Guguk Panjang Kota Bukiitinggi'),
-(26, 'aftt_bkt', 'PT. Al Falah Tour And Travel', 13, 'Cabang', '420 Tahun 2019', '2019-10-21', 'Jl. Syech Ibrahim Musa No. 1 RT. 01 RW. 01 Kel. Aur Tajungkang Tengah Sawah Kec. Guguk Panjang Bukittinggi');
+INSERT INTO `ppiu` (`id_ppiu`, `username`, `nama_ppiu`, `id_kab_kota`, `status`, `nomor_sk`, `tanggal_sk`, `alamat`, `nama_pimpinan`, `logo`) VALUES
+(1, 'bap_bkt', 'PT. Bonita Anugerah Pratama', 13, 'Pusat', 'No. U.81 Tahun 2020', '2020-03-31', 'Bawah Kantor Dinas Pasar No. 4 Pasar Simpang Aur Bukittinggi Tlp.0752-32520 Fax.0752-32560', NULL, 'default2.png'),
+(2, 'ram_bkt', 'PT. Rizkia Amanah Mandiri', 13, 'Pusat', 'No. U. 499 Tahun 2020', '2020-12-06', 'Jl. Soekarno Hatta No. 117 RT 002 RW 003 Kel. Manggis Ganting Kec. Mandiangin Koto Selayan Kota Bukittinggi', NULL, 'default.png'),
+(3, 'mftt_agm', 'PT. Mahabbah Family Tour dan Travel', 1, 'Pusat', 'No. 9120005970756 Tahun 2022', '2022-01-27', 'Jalan Lintas Lubuk Basung Bukittinggi Jorong Lubuk Anyir RT/RW 00/00 Kel. Bayua Kec. Tanjung Raya Kab. Agam', NULL, 'default.png'),
+(4, 'ahw_pasbar', 'PT. Azra Humaira Wisata', 7, 'Pusat', 'No.410 Tahun 2020', '2020-11-08', 'JI. Jenderal  Sudirman Jorong Simpang Ampek_Lingkuang Aua Kec.Pasaman Kab.Pasaman Barat', NULL, 'default.png'),
+(5, 'sih_pdg', 'PT. Sianok Indah Holiday ', 14, 'Pusat', 'No. U.81 Tahun 2020', '2021-08-02', 'Jl. Prof. DR. Hamka No.44 RT.1 RW.2 Kelurahan Air Tawar Barat Kecamatan Padang Utara Kota Padang.', NULL, 'default.png'),
+(6, 'ajt_pdg', 'PT.Armindo Jaya Tur', 14, 'Pusat', 'NO.U. 62 Tahun 2020', '2020-03-31', 'Jl. Bandar Purus No.72 Kelurahan Ujung Gurun Kecamatan Padang Barat.', NULL, 'default.png'),
+(7, 'pwn_pdg', 'PT. Penjuru Wisata Negeri', 14, 'Pusat', 'No.622 Tahun 2019', '2019-07-02', 'Jl. By PassKM.13 RT.03 RW.05 Kel. Sungai Sapih Kec. Kuranji Kota Padang.', NULL, 'default.png'),
+(8, 'bpwaza_pdg', 'PT. BPW Alhaadi Ziarah Andalas', 14, 'Pusat', 'No.U 413 tahun 2020', '2020-11-08', 'Jl. Prof. DR. Hamka No.44 RT.1 RW.2 Kelurahan Parupuak Tabing Kecamatan Koto Tangah Kota Padang.', NULL, 'default.png'),
+(9, 'fu_pdg', 'PT.Fahmi Utama ', 14, 'Pusat', 'No. U 355 Tahun 2020', '2020-10-17', 'Jl. Raden Shaleh No.52 RT.004 RW.003 Padang Barat Kota Padang', NULL, 'default.png'),
+(10, 'uhi_pdg', 'PT. Udacs Holiday Indonesia', 14, 'Pusat', 'No.444 Tahun 2017', '2017-07-13', 'Jl. Ir Juanda no.79 Komp Hotel Pengeran Beach Padang Kel.Flamboyan Baru Kec. Padang Barat.', NULL, 'default.png'),
+(11, 'rb_pdg', 'PT. Rindu Baitullah', 14, 'Pusat', 'No. 51 Tahun 2018', '2018-02-09', 'Jl. Mangga Raya No. 52 RT.06 RW.10 Perumnas Belimbing Kec.Kuranji Kota Padang.', NULL, 'default.png'),
+(12, 'tpw_pdg', 'PT. Tridaya Pesona Wisata', 14, 'Pusat', 'No.139 Tahun 218', '2018-03-01', 'Jl. S. Parman No. 90 D Kel. Lolong Belanti Kecamatan Padang Utara Kota Padang', NULL, 'default.png'),
+(13, 'cbm_pdg', 'PT. Cordoba Berkah Mandiri', 14, 'Pusat', 'No.U.127 Tahun 2020', '2020-06-15', 'Jl. Kampung Kalawi Barat No.4 RT.002 RW.007 Kel. Lubuk Lintah Kecamatan Kuranji Kota Padang', NULL, 'default.png'),
+(14, 'amu_pdg', 'PT. Azhar Mitra Utama', 14, 'Pusat', 'No.U.151 Tahun 2020', '2020-06-15', 'Jl. Sawahan No. 55 Kel. Sawahan Kecamatan Padang Timur', NULL, 'default.png'),
+(15, 'oad_pdg', 'PT. Ontiket Amanah Digita', 14, 'Pusat', 'No.U. 315 Tahun 2020', '2020-09-24', 'Jl. Adinegoro No.33 Rt.004 RW.008 Batang Kabung Ganting Kecamatan Koto Tangah Kota Padang.', NULL, 'default.png'),
+(16, 'sitt_pdg', 'PT. Sukses Internasional Tour and Travel', 14, 'Pusat', 'No.U.292 Tahun 2020', '2020-09-24', 'Jl. Ir. Juanda No.49 RT.001 RW.004 Kel. Flamboyan Baru Kec. Padang Barat Kota Padang', NULL, 'default.png'),
+(17, 'anr_pdg', 'PT. Arabia Nusantara Raya', 14, 'Pusat', 'No.U.450 Tahun 2021', '2021-10-14', 'Jl.Prof.Dr.Hamka  No.139 D Kel. Parupuak Tabing Kec. Koto Tangah Kota Padang.', NULL, 'default.png'),
+(18, 'lci_pdg', 'PT. Labbaika Cipta Imani', 14, 'Pusat', 'No.261 Tahun 2018', '2018-05-02', 'Jl.Irian No.2 Kel. Ulak Karang Kec. Padang Utara Kota Padang', NULL, 'default.png'),
+(19, 'bsm_pdgpj', 'PT. Bumi Serambi Mekah', 15, 'Pusat', 'No. U. 275 Tahun 2020', '2023-09-07', 'Jl. M. Yamin No.163 Rt 01 Rw 00 Kel.Silaing Atas Kec.Padang Panjang Kota Padang Panjang', NULL, 'default.png'),
+(20, 'hbas_slkslt', 'PT. Holiday Bumi Alam Surambi', 11, 'Pusat', '02200075501540001', '2022-04-03', 'Jorong Mantirai Pulakek Koto Baru Kec.Sungai Pagu Kab.Solok Selatan', NULL, 'default.png'),
+(21, 'sit_dhr', 'PT. Saudi Islamic Tour', 2, 'Pusat', '10062200283780007', '2022-08-02', 'Jl. Lintas Sumatera Jorong Pasa Pagi Kel.Sungai Rumbai Timur Kec.Sungai Rumbai Kab.Dharmasraya', NULL, 'default.png'),
+(22, 'pwn_bkt', 'PT. Penjuru Wisata Negeri', 13, 'Cabang', '259 Tahun 2017', '2017-11-06', 'Jl. H. Miskin RT.03/RW.03 Kel. Campago Ipuh, Kec. Mandiangin Koto Selayan Kota Bukittinggi', NULL, 'default.png'),
+(23, 'mtt_bkt', 'PT. Musafir Tour & Travel ', 13, 'Cabang', '144 Tahun 2018', '2018-03-29', 'Jl. Veteran No. 27 RT.002/RW.002 Kel. Puhun Tembok Kec. Mandiangin Koto Selayan, Kota Bukittinggi ', NULL, 'default.png'),
+(24, 'rautt_bkt', 'PT. Raka Amal Utama Tours & Travel', 13, 'Cabang', '220 Tahun 2018', '2018-05-22', 'Jl. M. Syafe\'i No. 7 D RT. 03 RW. 01 Kel. Tarok Dipo Kec. Guguk Panjang Kota Bukittinggi', NULL, 'default.png'),
+(25, 'set_bkt', 'PT. Sela Express Tour ', 13, 'Cabang', '390 Tahun 2019', '2019-09-26', 'Jl. Hamka No. 25 Kel. Pakan Kurai Kec. Guguk Panjang Kota Bukiitinggi', NULL, 'default.png'),
+(26, 'aftt_bkt', 'PT. Al Falah Tour And Travel', 13, 'Cabang', '420 Tahun 2019', '2019-10-21', 'Jl. Syech Ibrahim Musa No. 1 RT. 01 RW. 01 Kel. Aur Tajungkang Tengah Sawah Kec. Guguk Panjang Bukittinggi', NULL, 'default.png');
 
 -- --------------------------------------------------------
 
@@ -230,7 +239,7 @@ ALTER TABLE `kab_kota`
 -- AUTO_INCREMENT for table `kemenag_kab_kota`
 --
 ALTER TABLE `kemenag_kab_kota`
-  MODIFY `id_kemenag_kab_kota` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_kemenag_kab_kota` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `ppiu`

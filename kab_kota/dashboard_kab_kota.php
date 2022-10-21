@@ -81,8 +81,6 @@ include "session_kab_kota.php";
                                                     <th style="width:20px">No.</th>
                                                     <th>Nama PPIU</th>
                                                     <th>Status</th>
-                                                    <th>No. SK</th>
-                                                    <th style="width: 13%;">Tanggal SK</th>
                                                     <th>Alamat</th>
                                                     <th style="width: 14%;">Aksi</th>
                                                 </tr>
@@ -97,11 +95,9 @@ include "session_kab_kota.php";
                                                         <td><?php echo $no; ?></td>
                                                         <td><?php echo $tampil['nama_ppiu']; ?></td>
                                                         <td><?php echo $tampil['status']; ?></td>
-                                                        <td><?php echo $tampil['nomor_sk']; ?></td>
-                                                        <td><?php echo date('d-m-Y', strtotime($tampil['tanggal_sk'])); ?></td>
                                                         <td><?php echo $tampil['alamat']; ?></td>
                                                         <td>
-                                                            <a id="detail" type="button" class="btn btn-outline-info btn-sm" data-toggle="modal" data-target="#modal-detail" data-id_ppiu="<?php echo $tampil['id_ppiu']; ?>" data-nama_ppiu="<?php echo $tampil['nama_ppiu']; ?>" data-nama_kab_kota="<?php echo $tampil['nama_kab_kota']; ?>" data-status="<?php echo $tampil['status']; ?>" data-nomor_sk="<?php echo $tampil['nomor_sk']; ?>" data-tanggal_sk="<?php echo $tampil['tanggal_sk']; ?>" data-alamat="<?php echo $tampil['alamat']; ?>" data-nama_pimpinan="<?php echo $tampil['nama_pimpinan']; ?>" data-logo="<?php echo $tampil['logo']; ?>">
+                                                            <a id="detail" type="button" class="btn btn-outline-info btn-sm" data-toggle="modal" data-target="#modal-detail" data-id_ppiu="<?php echo $tampil['id_ppiu']; ?>" data-nama_ppiu="<?php echo $tampil['nama_ppiu']; ?>" data-username="<?php echo $tampil['username']; ?>" data-nama_kab_kota="<?php echo $tampil['nama_kab_kota']; ?>" data-status="<?php echo $tampil['status']; ?>" data-nomor_sk="<?php echo $tampil['nomor_sk']; ?>" data-tanggal_sk="<?php echo date('d-m-Y', strtotime($tampil['tanggal_sk'])); ?>" data-alamat="<?php echo $tampil['alamat']; ?>" data-nama_pimpinan="<?php echo $tampil['nama_pimpinan']; ?>" data-logo="<?php echo $tampil['logo']; ?>">
                                                                 <i class="fas fa-fw fa fa-eye"></i>
                                                             </a>
                                                             <a href="edit_ppiu.php?id_ppiu=<?php echo $tampil['id_ppiu'] ?>" type="button" class="btn btn-outline-warning btn-sm">
@@ -149,12 +145,20 @@ include "session_kab_kota.php";
                                                 <td><span id="nama_ppiu"></span></td>
                                             </tr>
                                             <tr>
+                                                <th>Username</th>
+                                                <td><span id="username"></span></td>
+                                            </tr>
+                                            <tr>
                                                 <th>Kab/Kota</th>
                                                 <td><span id="nama_kab_kota"></span></td>
                                             </tr>
                                             <tr>
                                                 <th>Status</th>
                                                 <td><span id="status"></span></td>
+                                            </tr>
+                                            <tr>
+                                                <th>Nama Pimpinan</th>
+                                                <td><span id="nama_pimpinan"></span></td>
                                             </tr>
                                             <tr>
                                                 <th>Nomor SK</th>
@@ -168,10 +172,6 @@ include "session_kab_kota.php";
                                                 <th>Alamat</th>
                                                 <td><span id="alamat"></span></td>
                                             </tr>
-                                            <tr>
-                                                <th>Nama Pimpinan</th>
-                                                <td><span id="nama_pimpinan"></span></td>
-                                            </tr>
                                         </tbody>
                                     </table>
                                 </div>
@@ -183,6 +183,7 @@ include "session_kab_kota.php";
                             $(document).on('click', '#detail', function() {
                                 var id_ppiu = $(this).data('id_ppiu');
                                 var nama_ppiu = $(this).data('nama_ppiu');
+                                var username = $(this).data('username');
                                 var nama_kab_kota = $(this).data('nama_kab_kota');
                                 var status = $(this).data('status');
                                 var nomor_sk = $(this).data('nomor_sk');
@@ -192,6 +193,7 @@ include "session_kab_kota.php";
                                 var logo = $(this).data('logo');
                                 $('#id_ppiu').text(id_ppiu);
                                 $('#nama_ppiu').text(nama_ppiu);
+                                $('#username').text(username);
                                 $('#nama_kab_kota').text(nama_kab_kota);
                                 $('#status').text(status);
                                 $('#nomor_sk').text(nomor_sk);
