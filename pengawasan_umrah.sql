@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 21, 2022 at 05:57 AM
+-- Generation Time: Oct 21, 2022 at 09:07 AM
 -- Server version: 10.4.19-MariaDB
 -- PHP Version: 8.0.6
 
@@ -56,6 +56,27 @@ INSERT INTO `kab_kota` (`id_kab_kota`, `nama_kab_kota`) VALUES
 (17, 'Kota Payakumbuh'),
 (18, 'Kota Sawahlunto'),
 (19, 'Kota Solok');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `kanwil`
+--
+
+CREATE TABLE `kanwil` (
+  `id_kanwil` int(11) NOT NULL,
+  `username` varchar(255) NOT NULL,
+  `nama_pimpinan` varchar(255) NOT NULL,
+  `alamat` varchar(255) NOT NULL,
+  `logo` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `kanwil`
+--
+
+INSERT INTO `kanwil` (`id_kanwil`, `username`, `nama_pimpinan`, `alamat`, `logo`) VALUES
+(1, 'kanwil', '', 'Jl. Kuini No.79B, Ujung Gurun, Kec. Padang Bar., Kota Padang, Sumatera Barat 25114', 'logo_kemenag.png');
 
 -- --------------------------------------------------------
 
@@ -204,6 +225,13 @@ ALTER TABLE `kab_kota`
   ADD PRIMARY KEY (`id_kab_kota`);
 
 --
+-- Indexes for table `kanwil`
+--
+ALTER TABLE `kanwil`
+  ADD PRIMARY KEY (`id_kanwil`),
+  ADD KEY `username` (`username`);
+
+--
 -- Indexes for table `kemenag_kab_kota`
 --
 ALTER TABLE `kemenag_kab_kota`
@@ -236,6 +264,12 @@ ALTER TABLE `kab_kota`
   MODIFY `id_kab_kota` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
+-- AUTO_INCREMENT for table `kanwil`
+--
+ALTER TABLE `kanwil`
+  MODIFY `id_kanwil` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT for table `kemenag_kab_kota`
 --
 ALTER TABLE `kemenag_kab_kota`
@@ -250,6 +284,12 @@ ALTER TABLE `ppiu`
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `kanwil`
+--
+ALTER TABLE `kanwil`
+  ADD CONSTRAINT `kanwil_ibfk_1` FOREIGN KEY (`username`) REFERENCES `user` (`username`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `kemenag_kab_kota`
