@@ -73,8 +73,8 @@ $result = mysqli_fetch_assoc($query);
                 title: 'Apakah Anda Yakin Ingin Logout?',
                 icon: 'warning',
                 showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
+                confirmButtonColor: '#26c0fc',
+                cancelButtonColor: '#f51d50',
                 cancelButtonText: 'Tidak!',
                 confirmButtonText: 'Ya!'
             }).then((result) => {

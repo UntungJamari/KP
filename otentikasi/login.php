@@ -75,7 +75,7 @@ if (isset($_POST['submit'])) {
 <body class="background">
     <style type="text/css">
         .background {
-            background: linear-gradient(#5cf25c, #076b07);
+            background: linear-gradient(#076b07, #5cf25c);
         }
     </style>
     <div class="container">
