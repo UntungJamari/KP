@@ -32,7 +32,12 @@ $result = mysqli_fetch_assoc($query);
             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
                 <a class="dropdown-item" href="lihat_profil.php">
                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                    Profile
+                    Profil
+                </a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="ganti_password.php">
+                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                    Ganti Password
                 </a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="../otentikasi/logout.php" id="btn-logout">
