@@ -1,5 +1,19 @@
 <?php
 include "session_kab_kota.php";
+
+
+if (isset($_POST['simpan'])) {
+    $id_kemenag_kab_kota = $_POST['id_kemenag_kab_kota'];
+    $nama_pimpinan = $_POST['nama_pimpinan'];
+    $alamat = $_POST['alamat'];
+
+    $query = mysqli_query($koneksi, "update kemenag_kab_kota set nama_pimpinan = '$nama_pimpinan', alamat = '$alamat' where id_kemenag_kab_kota = $id_kemenag_kab_kota");
+    if ($query) {
+        $berhasil = "Berhasil Menyimapan Data!";
+    } else {
+        $gagal = "Gagal Menyimpan Data!";
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -59,8 +73,37 @@ include "session_kab_kota.php";
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                                     <h6 class="m-0 font-weight-bold text-primary">Edit Profil</h6>
+
+                                    <?php
+                                    if (isset($gagal)) {
+                                    ?>
+                                        <script>
+                                            swal.fire({
+                                                icon: 'error',
+                                                showConfirmButton: false,
+                                                timer: '2000',
+                                                title: '<?php echo $gagal; ?>'
+                                            })
+                                        </script>
+                                    <?php
+                                    }
+                                    ?>
+                                    <?php
+                                    if (isset($berhasil)) {
+                                    ?>
+                                        <script>
+                                            swal.fire({
+                                                icon: 'success',
+                                                showConfirmButton: false,
+                                                timer: '2000',
+                                                title: '<?php echo $berhasil; ?>'
+                                            })
+                                        </script>
+                                    <?php
+                                    }
+                                    ?>
                                 </div>
-                                <div class="table-responsive card-body">
+                                <div class="card-body">
                                     <?php
 
                                     $username = $_SESSION['username'];
@@ -70,30 +113,29 @@ include "session_kab_kota.php";
                                     ?>
                                     <center>
                                         <img src="../images/<?php echo $result['logo']; ?>" style="width: 250px;" class="mb-5">
+                                        <h4 class="mb-3">Kementerian Agama <?php echo $result['nama_kab_kota']; ?></h4>
                                     </center>
-                                    <form class="row g-2 needs-validation" novalidate method="post">
-                                        <div>
-                                            <input type="hidden" class="form-control" style="background-color: #dee2e6" id="validationCustom01" pattern="^[A-Za-z]+([\A-Za-z]+)*" name="id_pelanggan" value="<?php echo $result['id_kemenag_kab_kota']; ?>" readonly required>
-                                        </div>
+                                    <form class="row g-2" action="edit_profil.php" method="POST">
+                                        <input type="hidden" name="id_kemenag_kab_kota" value="<?php echo $result['id_kemenag_kab_kota']; ?>">
                                         <div class="col-md-6 form-group">
-                                            <label for="validationCustom01" class="form-label">ID</label>
-                                            <input type="text" class="form-control" style="background-color: #dee2e6" id="validationCustom01" name="nama_pelanggan" value="<?php echo $result['id_kemenag_kab_kota']; ?>" readonly disabled required>
+                                            <label for="input1" class="form-label">ID</label>
+                                            <input type="text" class="form-control" style="background-color: #dee2e6" id="input1" value="<?php echo $result['id_kemenag_kab_kota']; ?>" disabled required>
                                         </div>
                                         <div class="col-md-6 form-group">
                                             <label for="validationCustom02" class="form-label">Username</label>
-                                            <input type="text" class="form-control" style="background-color: #dee2e6" id="validationCustom02" name="nama_pelanggan" value="<?php echo $result['username']; ?>" readonly disabled required>
+                                            <input type="text" class="form-control" style="background-color: #dee2e6" id="validationCustom02" name="username" value="<?php echo $result['username']; ?>" disabled required>
                                         </div>
                                         <div class="col-md-12 form-group">
                                             <label for="validationCustom03" class="form-label">Nama Pimpinan</label>
-                                            <input autofocus type="text" class="form-control" id="validationCustom03" name="nama_pelanggan" value="<?php echo $result['nama_pimpinan']; ?>" required>
+                                            <input autofocus type="text" class="form-control" id="validationCustom03" name="nama_pimpinan" value="<?php echo $result['nama_pimpinan']; ?>" required>
                                         </div>
                                         <div class="col-md-12 form-group">
                                             <label for="validationCustom04" class="form-label">Alamat</label>
-                                            <textarea class="form-control" name="alamat" id="validationCustom04" cols="30" rows="3"><?php echo $result['alamat']; ?></textarea>
+                                            <textarea class="form-control" name="alamat" id="validationCustom04" cols="30" rows="3" required><?php echo $result['alamat']; ?></textarea>
                                         </div>
                                         <div class="col-md-12 form-group">
                                             <center>
-                                                <button href="edit_profil.php" type="submit" class="btn btn-outline-primary btn-sm my-3">
+                                                <button type="submit" class="btn btn-outline-primary btn-sm my-3" name="simpan">
                                                     <i class="fas fa-fw fa fa-save"></i>
                                                     <span>Simpan</span>
                                                 </button>
@@ -126,13 +168,6 @@ include "session_kab_kota.php";
         <a class="scroll-to-top rounded" href="#page-top">
             <i class="fas fa-angle-up"></i>
         </a>
-
-        <script>
-            $(document).ready(function() {
-                $('#example').DataTable();
-            });
-        </script>
-
 </body>
 
 </html>

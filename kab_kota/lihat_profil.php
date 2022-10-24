@@ -70,6 +70,7 @@ include "session_kab_kota.php";
                                     ?>
                                     <center>
                                         <img src="../images/<?php echo $result['logo']; ?>" style="width: 250px;" class="mb-5">
+                                        <h4 class="mb-3">Kementerian Agama <?php echo $result['nama_kab_kota']; ?></h4>
                                         <table class="table table-bordered no-margin col-8">
                                             <tbody>
                                                 <tr>
