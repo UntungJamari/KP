@@ -36,7 +36,7 @@ $result = mysqli_fetch_assoc($query);
                 </a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="ganti_password.php">
-                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                    <i class="fas fa-key fa-sm fa-fw mr-2 text-gray-400"></i>
                     Ganti Password
                 </a>
                 <div class="dropdown-divider"></div>
