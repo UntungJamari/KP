@@ -3,7 +3,7 @@ include "session_kab_kota.php";
 
 if (isset($_POST['simpan'])) {
 
-    if (empty($_POST["nama_ppiu"]) || empty($_POST["status"]) || empty($_POST["nomor_sk"]) || empty($_POST["tanggal_sk"]) || empty($_POST["alamat"]) || empty($_POST["username"])) {
+    if (empty($_POST["nama_ppiu"]) || empty($_POST["nama_pimpinan"]) || empty($_POST["status"]) || empty($_POST["nomor_sk"]) || empty($_POST["tanggal_sk"]) || empty($_POST["alamat"]) || empty($_POST["username"])) {
         $gagal = "Isian Dengan Tanda (*) Tidak Boleh Kososng!";
     } else {
         $nama_ppiu = $_POST['nama_ppiu'];
@@ -79,7 +79,7 @@ if (isset($_POST['simpan'])) {
     <meta name="author" content="">
 
     <link rel="icon" type="image/png" href="../images/logo_kemenag.png">
-    <title>Tambah PPIU</title>
+    <title>Edit PPIU</title>
 
     <!-- Custom fonts for this template-->
     <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -125,7 +125,7 @@ if (isset($_POST['simpan'])) {
                             <div class="card shadow mb-4">
                                 <!-- Card Header - Dropdown -->
                                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary">Tambah PPIU</h6>
+                                    <h6 class="m-0 font-weight-bold text-primary">Edit PPIU</h6>
                                     <?php
                                     if (isset($gagal)) {
                                     ?>
@@ -162,6 +162,14 @@ if (isset($_POST['simpan'])) {
                                         <i class="fas fa-fw fa fa-arrow-alt-circle-left"></i>
                                         <span>Kembali</span>
                                     </a>
+                                    <?php
+
+                                    $id_ppiu = $_GET['id_ppiu'];
+
+                                    $query = mysqli_query($koneksi, "select * from ppiu WHERE id_ppiu = '$id_ppiu'");
+                                    $result = mysqli_fetch_assoc($query);
+
+                                    ?>
                                     <form class="row g-2 mt-3" action="tambah_ppiu.php" method="POST" id="form" enctype="multipart/form-data">
                                         <div class="col-md-12 form-group">
                                             <center>
@@ -170,36 +178,58 @@ if (isset($_POST['simpan'])) {
                                         </div>
                                         <div class="col-md-12 form-group">
                                             <label for="input1" class="form-label">Nama PPIU</label><label style="color: red;">*</label>
-                                            <input autofocus type="text" class="form-control" id="input1" name="nama_ppiu">
+                                            <input autofocus type="text" class="form-control" id="input1" name="nama_ppiu" value="<?php echo $result['nama_ppiu'] ?>">
                                             <input type="hidden" class="form-control" name="id_kab_kota" value="<?php echo $result['id_kab_kota']; ?>">
 
                                         </div>
                                         <div class="col-md-6 form-group">
                                             <label for="input1" class="form-label">Nama Pimpinan</label><label style="color: red;">*</label>
-                                            <input autofocus type="text" class="form-control" id="input1" name="nama_pimpinan">
+                                            <input autofocus type="text" class="form-control" id="input1" name="nama_pimpinan" value="<?php echo $result['nama_pimpinan']; ?>">
                                         </div>
                                         <div class="col-md-6 form-group">
                                             <label for="input2" class="form-label">Status</label><label style="color: red;">*</label>
                                             <select class="form-control" name="status" id="input2">
-                                                <option value="" selected disabled>Pilih Status</option>
+                                                <?php
+
+                                                if ($result['status'] == 'Pusat') {
+                                                ?>
+                                                    <option value="pusat" selected>Pusat</option>
+                                                    <option value="cabang">Cabang</option>
+
+                                                <?php
+                                                } else {
+                                                ?>
+                                                    <option value="pusat">Pusat</option>
+                                                    <option value="cabang" selected>Cabang</option>
+
+                                                <?php
+                                                }
+
+                                                ?>
                                                 <option value="pusat">Pusat</option>
                                                 <option value="cabang">Cabang</option>
                                             </select>
                                         </div>
                                         <div class="col-md-6 form-group">
                                             <label for="input1" class="form-label">Nomor SK</label><label style="color: red;">*</label>
-                                            <input autofocus type="text" class="form-control" id="input1" name="nomor_sk">
+                                            <input autofocus type="text" class="form-control" id="input1" name="nomor_sk" value="<?php echo $result['nomor_sk']; ?>">
                                         </div>
                                         <div class="col-md-6 form-group">
                                             <label for="input1" class="form-label">Tanggal SK</label><label style="color: red;">*</label>
-                                            <input autofocus type="date" class="form-control" id="input1" name="tanggal_sk">
+                                            <input autofocus type="date" class="form-control" id="input1" name="tanggal_sk" value="<?php echo $result['tanggal_sk']; ?>">
                                         </div>
                                         <div class="col-md-12 form-group">
                                             <label for="validationCustom04" class="form-label">Alamat</label><label style="color: red;">*</label>
-                                            <textarea class="form-control" name="alamat" id="validationCustom04" cols="30" rows="3"></textarea>
+                                            <textarea class="form-control" name="alamat" id="validationCustom04" cols="30" rows="3"><?php echo $result['alamat']; ?></textarea>
                                         </div>
-                                        <div class="col-md-3 form-group">
-                                            <label for="input1" class="form-label">Logo</label>
+                                        <div class="col-md-5 form-group">
+                                            <label class="form-label">Logo</label><br>
+                                            <center>
+                                                <img src="../images/profile/<?php echo $result['logo']; ?>" height="200px">
+                                            </center>
+                                        </div>
+                                        <div class="col-md-2 form-group">
+                                            <label for="input1" class="form-label">-</label>
                                             <br>
                                             <input type="file" id="file" name="logo" style="display: none;">
                                             <label for="file" class="btn btn-primary btn-user btn-block">
@@ -207,8 +237,13 @@ if (isset($_POST['simpan'])) {
                                                 </i>
                                                 Pilih Gambar
                                             </label>
-                                            <img id="upload-img" height="0px">
                                             <p style="font-size: 12px; color: #8f8f8f;">*ukuran file maksimal 1 mb dan format file : .jpg, .jpeg, .png</p>
+                                        </div>
+                                        <div class="col-md-5 form-group">
+                                            <label class="form-label">-</label><br>
+                                            <center>
+                                                <img id="upload-img" height="0px">
+                                            </center>
                                         </div>
                                         <div class="col-md-12 form-group mt-5">
                                             <center>
@@ -217,7 +252,7 @@ if (isset($_POST['simpan'])) {
                                         </div>
                                         <div class="col-md-6 form-group">
                                             <label for="input1" class="form-label">Username</label><label style="color: red;">*</label>
-                                            <input autofocus type="text" class="form-control" id="input1" name="username">
+                                            <input autofocus type="text" class="form-control" id="input1" name="username" value="<?php echo $result['username']; ?>">
                                         </div>
                                         <div class="col-md-6 form-group">
                                             <label for="input1" class="form-label">Password</label>
