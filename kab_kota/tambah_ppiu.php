@@ -175,7 +175,7 @@ if (isset($_POST['simpan'])) {
 
                                         </div>
                                         <div class="col-md-6 form-group">
-                                            <label for="input1" class="form-label">Nama Pimpinan</label><label style="color: red;">*</label>
+                                            <label for="input1" class="form-label">Nama Pimpinan</label>
                                             <input autofocus type="text" class="form-control" id="input1" name="nama_pimpinan">
                                         </div>
                                         <div class="col-md-6 form-group">
