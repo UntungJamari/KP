@@ -1,5 +1,71 @@
 <?php
 include "session_kab_kota.php";
+
+if (isset($_POST['simpan'])) {
+
+    if (empty($_POST["nama_ppiu"]) || empty($_POST["nama_pimpinan"]) || empty($_POST["status"]) || empty($_POST["nomor_sk"]) || empty($_POST["tanggal_sk"]) || empty($_POST["alamat"]) || empty($_POST["username"])) {
+        $gagal = "Isian Dengan Tanda (*) Tidak Boleh Kososng!";
+    } else {
+        $nama_ppiu = $_POST['nama_ppiu'];
+        $id_kab_kota = $_POST['id_kab_kota'];
+        $nama_pimpinan = $_POST['nama_pimpinan'];
+        $status = $_POST['status'];
+        $nomor_sk = $_POST['nomor_sk'];
+        $tanggal_sk = $_POST['tanggal_sk'];
+        $alamat = $_POST['alamat'];
+        $username = $_POST['username'];
+        $password = "12345678";
+        $password = password_hash($password, PASSWORD_DEFAULT);
+
+        $image = $_FILES['logo']['name'];
+
+        $query = mysqli_query($koneksi, "select * from user where username = '$username'");
+        if (mysqli_affected_rows($koneksi) == 0) {
+
+            if (!empty($image)) {
+
+                $ekstensi_diperbolehkan = array('png', 'jpg', 'jpeg');
+                $image = $_FILES['logo']['name'];
+                $x = explode('.', $image);
+                $ekstensi = strtolower(end($x));
+                $ukuran = $_FILES['logo']['size'];
+                $file_tmp = $_FILES['logo']['tmp_name'];
+
+                if (in_array($ekstensi, $ekstensi_diperbolehkan) === true) {
+                    if ($ukuran < 1044070) {
+                        move_uploaded_file($file_tmp, '../images/profile/' . $image);
+                        $query = mysqli_query($koneksi, "insert into user values ('$username', '$password', 'ppiu');");
+                        $query2 = mysqli_query($koneksi, "INSERT INTO `ppiu`(`username`, `nama_ppiu`, `id_kab_kota`, `status`, `nomor_sk`, `tanggal_sk`, `alamat`, `nama_pimpinan`) VALUES ('$username','$nama_ppiu',$id_kab_kota,'$status','$nomor_sk','$tanggal_sk','$alamat','$nama_pimpinan');");
+                        $query3 = mysqli_query($koneksi, "update ppiu set logo='$image' where username='$username';");
+                        if (($query == false) || ($query2 == false) || ($query3 == false)) {
+                            $gagal = "Gagal Menyimpan Data!";
+                        } else {
+                            $berhasil = "Berhasil Menyimapan Data!";
+                        }
+                    } else {
+                        $gagal = "Ukuran File Gambar Terlalu Besar";
+                    }
+                } else {
+                    $gagal = "Ekstensi File Gambar Tidak Diperbolehkan";
+                }
+            } else {
+                $query = mysqli_query($koneksi, "insert into user values ('$username', '$password', 'ppiu');");
+
+                $query2 = mysqli_query($koneksi, "INSERT INTO `ppiu`(`username`, `nama_ppiu`, `id_kab_kota`, `status`, `nomor_sk`, `tanggal_sk`, `alamat`, `nama_pimpinan`) VALUES ('$username','$nama_ppiu',$id_kab_kota,'$status','$nomor_sk','$tanggal_sk','$alamat','$nama_pimpinan');");
+
+                if (($query == false) || ($query2 == false)) {
+                    $gagal = "Gagal Menyimpan Data!";
+                } else {
+                    $berhasil = "Berhasil Menyimapan Data!";
+                }
+            }
+        } else {
+            $gagal = "Username $username sudah ada!";
+        }
+    }
+}
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -60,6 +126,35 @@ include "session_kab_kota.php";
                                 <!-- Card Header - Dropdown -->
                                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                                     <h6 class="m-0 font-weight-bold text-primary">Tambah PPIU</h6>
+                                    <?php
+                                    if (isset($gagal)) {
+                                    ?>
+                                        <script>
+                                            swal.fire({
+                                                icon: 'error',
+                                                showConfirmButton: false,
+                                                timer: '2000',
+                                                title: '<?php echo $gagal; ?>'
+                                            })
+                                        </script>
+                                    <?php
+                                    }
+                                    ?>
+                                    <?php
+                                    if (isset($berhasil)) {
+                                    ?>
+                                        <script>
+                                            swal.fire({
+                                                icon: 'success',
+                                                showConfirmButton: false,
+                                                timer: '2000',
+                                                title: '<?php echo $berhasil; ?>'
+                                            })
+                                        </script>
+                                    <?php
+                                    }
+                                    ?>
+
                                 </div>
                                 <!-- Card Body -->
                                 <div class="card-body">
@@ -67,145 +162,80 @@ include "session_kab_kota.php";
                                         <i class="fas fa-fw fa fa-arrow-alt-circle-left"></i>
                                         <span>Kembali</span>
                                     </a>
-                                    <div class="table-responsive">
-                                        <?php
+                                    <form class="row g-2 mt-3" action="tambah_ppiu.php" method="POST" id="form" enctype="multipart/form-data">
+                                        <div class="col-md-12 form-group">
+                                            <center>
+                                                <h4 class="mb-3">Data PPIU</h4>
+                                            </center>
+                                        </div>
+                                        <div class="col-md-12 form-group">
+                                            <label for="input1" class="form-label">Nama PPIU</label><label style="color: red;">*</label>
+                                            <input autofocus type="text" class="form-control" id="input1" name="nama_ppiu">
+                                            <input type="hidden" class="form-control" name="id_kab_kota" value="<?php echo $result['id_kab_kota']; ?>">
 
-                                        $username = $_SESSION['username'];
-                                        $query = mysqli_query($koneksi, "select * from kemenag_kab_kota, kab_kota, ppiu where kemenag_kab_kota.id_kab_kota=kab_kota.id_kab_kota and kab_kota.id_kab_kota=ppiu.id_kab_kota and kemenag_kab_kota.username='$username'");
-                                        $no = 1;
-
-                                        ?>
-                                        <table class="table table-bordered" id="example" width="100%" cellspacing="0">
-                                            <thead>
-                                                <tr>
-                                                    <th style="width:20px">No.</th>
-                                                    <th>Nama PPIU</th>
-                                                    <th>Status</th>
-                                                    <th>Alamat</th>
-                                                    <th style="width: 14%;">Aksi</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <?php
-
-                                                while ($tampil = mysqli_fetch_array($query)) {
-
-                                                ?>
-                                                    <tr>
-                                                        <td><?php echo $no; ?></td>
-                                                        <td><?php echo $tampil['nama_ppiu']; ?></td>
-                                                        <td><?php echo $tampil['status']; ?></td>
-                                                        <td><?php echo $tampil['alamat']; ?></td>
-                                                        <td>
-                                                            <a id="detail" type="button" class="btn btn-outline-info btn-sm" data-toggle="modal" data-target="#modal-detail" data-id_ppiu="<?php echo $tampil['id_ppiu']; ?>" data-nama_ppiu="<?php echo $tampil['nama_ppiu']; ?>" data-username="<?php echo $tampil['username']; ?>" data-nama_kab_kota="<?php echo $tampil['nama_kab_kota']; ?>" data-status="<?php echo $tampil['status']; ?>" data-nomor_sk="<?php echo $tampil['nomor_sk']; ?>" data-tanggal_sk="<?php echo date('d-m-Y', strtotime($tampil['tanggal_sk'])); ?>" data-alamat="<?php echo $tampil['alamat']; ?>" data-nama_pimpinan="<?php echo $tampil['nama_pimpinan']; ?>" data-logo="<?php echo $tampil['logo']; ?>">
-                                                                <i class="fas fa-fw fa fa-eye"></i>
-                                                            </a>
-                                                            <a href="edit_ppiu.php?id_ppiu=<?php echo $tampil['id_ppiu'] ?>" type="button" class="btn btn-outline-warning btn-sm">
-                                                                <i class="fas fa-fw fa fa-edit"></i>
-                                                            </a>
-                                                            <a href="dashboard_kab_kota.php?id_ppiu=<?php echo $tampil['id_ppiu'] ?>" type="button" class="btn btn-outline-danger btn-sm">
-                                                                <i class="fas fa-fw fa fa-trash-alt"></i>
-                                                            </a>
-                                                        </td>
-                                                    </tr>
-                                                <?php
-                                                    $no++;
-                                                }
-
-                                                ?>
-                                            </tbody>
-                                        </table>
-                                    </div>
+                                        </div>
+                                        <div class="col-md-6 form-group">
+                                            <label for="input1" class="form-label">Nama Pimpinan</label><label style="color: red;">*</label>
+                                            <input autofocus type="text" class="form-control" id="input1" name="nama_pimpinan">
+                                        </div>
+                                        <div class="col-md-6 form-group">
+                                            <label for="input2" class="form-label">Status</label><label style="color: red;">*</label>
+                                            <select class="form-control" name="status" id="input2">
+                                                <option value="" selected disabled>Pilih Status</option>
+                                                <option value="pusat">Pusat</option>
+                                                <option value="cabang">Cabang</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-6 form-group">
+                                            <label for="input1" class="form-label">Nomor SK</label><label style="color: red;">*</label>
+                                            <input autofocus type="text" class="form-control" id="input1" name="nomor_sk">
+                                        </div>
+                                        <div class="col-md-6 form-group">
+                                            <label for="input1" class="form-label">Tanggal SK</label><label style="color: red;">*</label>
+                                            <input autofocus type="date" class="form-control" id="input1" name="tanggal_sk">
+                                        </div>
+                                        <div class="col-md-12 form-group">
+                                            <label for="validationCustom04" class="form-label">Alamat</label><label style="color: red;">*</label>
+                                            <textarea class="form-control" name="alamat" id="validationCustom04" cols="30" rows="3"></textarea>
+                                        </div>
+                                        <div class="col-md-3 form-group">
+                                            <label for="input1" class="form-label">Logo</label>
+                                            <br>
+                                            <input type="file" id="file" name="logo" style="display: none;">
+                                            <label for="file" class="btn btn-primary btn-user btn-block">
+                                                <i class="fas fa-fw fa fa-images">
+                                                </i>
+                                                Pilih Gambar
+                                            </label>
+                                            <img id="upload-img" height="0px">
+                                            <p style="font-size: 12px; color: #8f8f8f;">*ukuran file maksimal 1 mb dan format file : .jpg, .jpeg, .png</p>
+                                        </div>
+                                        <div class="col-md-12 form-group mt-5">
+                                            <center>
+                                                <h4 class="mb-3">Akun PPIU</h4>
+                                            </center>
+                                        </div>
+                                        <div class="col-md-6 form-group">
+                                            <label for="input1" class="form-label">Username</label><label style="color: red;">*</label>
+                                            <input autofocus type="text" class="form-control" id="input1" name="username">
+                                        </div>
+                                        <div class="col-md-6 form-group">
+                                            <label for="input1" class="form-label">Password</label>
+                                            <input autofocus type="text" class="form-control" id="input1" name="password" placeholder="Default : 12345678" disabled>
+                                        </div>
+                                        <div class="col-md-12 form-group">
+                                            <center>
+                                                <button type="submit" class="btn btn-outline-primary btn-sm mt-5 mb-3" name="simpan" id="simpan">
+                                                    <i class="fas fa-fw fa fa-save"></i>
+                                                    <span>Simpan</span>
+                                                </button>
+                                            </center>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <!-- /.container-fluid -->
-                    <div class="modal fade" id="modal-detail">
-                        <div class="modal-dialog">
-                            <div class="modal-content card shadow mb-4">
-                                <div class="modal-header card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h4 class="modal-title m-0 font-weight-bold text-primary">Detail PPIU</h4>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body table-responsive card-body">
-                                    <center>
-                                        <img class="mb-5" id="gambar" style="width: 300px;">
-                                    </center>
-                                    <table class="table table-bordered no-margin">
-                                        <tbody>
-                                            <tr>
-                                                <th>ID PPIU</th>
-                                                <td><span id="id_ppiu"></span></td>
-                                            </tr>
-                                            <tr>
-                                                <th>Nama PPIU</th>
-                                                <td><span id="nama_ppiu"></span></td>
-                                            </tr>
-                                            <tr>
-                                                <th>Username</th>
-                                                <td><span id="username"></span></td>
-                                            </tr>
-                                            <tr>
-                                                <th>Kab/Kota</th>
-                                                <td><span id="nama_kab_kota"></span></td>
-                                            </tr>
-                                            <tr>
-                                                <th>Status</th>
-                                                <td><span id="status"></span></td>
-                                            </tr>
-                                            <tr>
-                                                <th>Nama Pimpinan</th>
-                                                <td><span id="nama_pimpinan"></span></td>
-                                            </tr>
-                                            <tr>
-                                                <th>Nomor SK</th>
-                                                <td><span id="nomor_sk"></span></td>
-                                            </tr>
-                                            <tr>
-                                                <th>Tanggal SK</th>
-                                                <td><span id="tanggal_sk"></span></td>
-                                            </tr>
-                                            <tr>
-                                                <th>Alamat</th>
-                                                <td><span id="alamat"></span></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <script>
-                        $(document).ready(function() {
-                            $(document).on('click', '#detail', function() {
-                                var id_ppiu = $(this).data('id_ppiu');
-                                var nama_ppiu = $(this).data('nama_ppiu');
-                                var username = $(this).data('username');
-                                var nama_kab_kota = $(this).data('nama_kab_kota');
-                                var status = $(this).data('status');
-                                var nomor_sk = $(this).data('nomor_sk');
-                                var tanggal_sk = $(this).data('tanggal_sk');
-                                var alamat = $(this).data('alamat');
-                                var nama_pimpinan = $(this).data('nama_pimpinan');
-                                var logo = $(this).data('logo');
-                                $('#id_ppiu').text(id_ppiu);
-                                $('#nama_ppiu').text(nama_ppiu);
-                                $('#username').text(username);
-                                $('#nama_kab_kota').text(nama_kab_kota);
-                                $('#status').text(status);
-                                $('#nomor_sk').text(nomor_sk);
-                                $('#tanggal_sk').text(tanggal_sk);
-                                $('#alamat').text(alamat);
-                                $('#nama_pimpinan').text(nama_pimpinan);
-                                $('#logo').text(logo);
-                                $('#gambar').attr('src', '../images/profile/' + logo);
-
-                            })
-                        })
-                    </script>
                 </div>
                 <!-- End of Main Content -->
 
@@ -230,9 +260,14 @@ include "session_kab_kota.php";
         </a>
 
         <script>
-            $(document).ready(function() {
-                $('#example').DataTable();
-            });
+            $(function() {
+                $("#file").change(function(event) {
+                    var x = URL.createObjectURL(event.target.files[0]);
+                    $("#upload-img").attr("src", x);
+                    $("#upload-img").attr("height", "200px");
+                    console.log(event);
+                });
+            })
         </script>
 
 </body>
