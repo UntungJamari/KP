@@ -182,6 +182,23 @@ if (!isset($_GET['id_ppiu'])) {
                                     $result = mysqli_fetch_assoc($query);
 
                                     ?>
+                                    <form class="row g-2 mt-3" action="edit_ppiu.php" method="POST" id="form" enctype="multipart/form-data" data-flag="0">
+                                        <div class="col-md-12 form-group mt-5">
+                                            <center>
+                                                <h4 class="mb-3">Akun PPIU</h4>
+                                            </center>
+                                        </div>
+                                        <div class="col-md-6 form-group">
+                                            <label for="input1" class="form-label">Username</label>
+                                            <input autofocus type="text" class="form-control" id="input1" value="<?php echo $result['username']; ?>" disabled>
+                                            <input autofocus type="hidden" class="form-control" id="input1" name="username" value="<?php echo $result['username']; ?>">
+                                        </div>
+                                        <div class="col-md-6 form-group">
+                                            <label for="input1" class="form-label">Reset Password</label>
+                                            <input type="submit" onclick="konfirmasi()" class="btn btn-primary btn-user btn-block" id="reset_password" name="reset_password" value="Default : 12345678">
+                                        </div>
+                                    </form>
+                                    <hr>
                                     <form class="row g-2 mt-3" action="edit_ppiu.php" method="POST" id="form" enctype="multipart/form-data">
                                         <div class="col-md-12 form-group">
                                             <center>
@@ -263,23 +280,6 @@ if (!isset($_GET['id_ppiu'])) {
                                                     <span>Simpan</span>
                                                 </button>
                                             </center>
-                                        </div>
-                                    </form>
-                                    <hr>
-                                    <form class="row g-2 mt-3" action="edit_ppiu.php" method="POST" id="form" enctype="multipart/form-data" data-flag="0">
-                                        <div class="col-md-12 form-group mt-5">
-                                            <center>
-                                                <h4 class="mb-3">Akun PPIU</h4>
-                                            </center>
-                                        </div>
-                                        <div class="col-md-6 form-group">
-                                            <label for="input1" class="form-label">Username</label>
-                                            <input autofocus type="text" class="form-control" id="input1" value="<?php echo $result['username']; ?>" disabled>
-                                            <input autofocus type="hidden" class="form-control" id="input1" name="username" value="<?php echo $result['username']; ?>">
-                                        </div>
-                                        <div class="col-md-6 form-group">
-                                            <label for="input1" class="form-label">Reset Password</label>
-                                            <input type="submit" onclick="konfirmasi()" class="btn btn-primary btn-user btn-block" id="reset_password" name="reset_password" value="Default : 12345678">
                                         </div>
                                     </form>
                                 </div>
