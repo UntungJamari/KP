@@ -170,7 +170,7 @@ if (!isset($_GET['id_ppiu'])) {
                                 </div>
                                 <!-- Card Body -->
                                 <div class="card-body">
-                                    <a href="dashboard_kab_kota.php" type="button" class="btn btn-outline-warning btn-sm mb-3">
+                                    <a href="lihat_ppiu.php" type="button" class="btn btn-outline-warning btn-sm mb-3">
                                         <i class="fas fa-fw fa fa-arrow-alt-circle-left"></i>
                                         <span>Kembali</span>
                                     </a>

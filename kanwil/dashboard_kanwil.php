@@ -47,155 +47,106 @@ include "session_kanwil.php";
 
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">PPIU</h1>
+                        <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
                     </div>
 
-                    <!-- Content Row -->
-
                     <div class="row">
-
-                        <!-- Area Chart -->
-                        <div class="col-xl-12 col-lg-7">
-                            <div class="card shadow mb-4">
-                                <!-- Card Header - Dropdown -->
-                                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary">Daftar PPIU</h6>
-                                </div>
-                                <!-- Card Body -->
+                        <div class="col-xl-4 col-md-6 mb-4">
+                            <div class="card border-left-info shadow h-100 py-2">
                                 <div class="card-body">
-                                    <div class="table-responsive">
-                                        <?php
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Jumlah PPIU
+                                            </div>
+                                            <div class="row no-gutters align-items-center">
+                                                <div class="col-auto">
+                                                    <div class="h5 mb-2 mr-3 font-weight-bold text-gray-800">
+                                                        <?php
+                                                        $query = mysqli_query($koneksi, "select * from ppiu");
+                                                        $total_ppiu = mysqli_affected_rows($koneksi);
+                                                        echo $total_ppiu;
+                                                        ?>
+                                                    </div>
+                                                    <?php
+                                                    $query = mysqli_query($koneksi, "select * from ppiu where status='Pusat'");
+                                                    $total_ppiu_pusat = mysqli_affected_rows($koneksi);
+                                                    echo "Pusat : " . $total_ppiu_pusat . "<br>";
+                                                    $query = mysqli_query($koneksi, "select * from ppiu where status='Cabang'");
+                                                    $total_ppiu_cabang = mysqli_affected_rows($koneksi);
+                                                    echo "Cabang : " . $total_ppiu_cabang;
+                                                    ?>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-building fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-md-6 mb-4">
+                            <div class="card border-left-primary shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Total Pengisian Blanko Pengawasan Umrah
+                                            </div>
+                                            <div class="row no-gutters align-items-center">
+                                                <div class="col-auto">
+                                                    <div class="h5 mb-2 mr-3 font-weight-bold text-gray-800">
+                                                        <?php
+                                                        $query = mysqli_query($koneksi, "select * from pengawasan");
+                                                        $total_pengawasan = mysqli_affected_rows($koneksi);
+                                                        echo $total_pengawasan;
+                                                        ?>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-md-6 mb-4">
+                            <div class="card border-left-success shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Total Jemaah yang Berangkat Umrah
+                                            </div>
+                                            <div class="row no-gutters align-items-center">
+                                                <div class="col-auto">
+                                                    <div class="h5 mb-2 mr-3 font-weight-bold text-gray-800">
+                                                        <?php
+                                                        $query = mysqli_query($koneksi, "select sum(jumlah_jemaah_laki_laki) as total_jemaah_laki_laki, sum(jumlah_jemaah_wanita) as total_jemaah_wanita  from pengawasan");
+                                                        $result = mysqli_fetch_assoc($query);
 
-                                        $username = $_SESSION['username'];
-                                        $query = mysqli_query($koneksi, "select * from ppiu, kab_kota where ppiu.id_kab_kota = kab_kota.id_kab_kota");
-                                        $no = 1;
+                                                        $total_jemaah_laki_laki = $result['total_jemaah_laki_laki'];
+                                                        $total_jemaah_wanita = $result['total_jemaah_wanita'];
+                                                        $total_jemaah = $total_jemaah_laki_laki + $total_jemaah_wanita;
 
-                                        ?>
-                                        <table class="table table-bordered" id="example" width="100%" cellspacing="0">
-                                            <thead>
-                                                <tr>
-                                                    <th style="width:20px">No.</th>
-                                                    <th>Nama PPIU</th>
-                                                    <th>Status</th>
-                                                    <th>Alamat</th>
-                                                    <th style="width: 8%;">Aksi</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <?php
-
-                                                while ($tampil = mysqli_fetch_array($query)) {
-
-                                                ?>
-                                                    <tr>
-                                                        <td><?php echo $no; ?></td>
-                                                        <td><?php echo $tampil['nama_ppiu']; ?></td>
-                                                        <td><?php echo $tampil['status']; ?></td>
-                                                        <td><?php echo $tampil['alamat']; ?></td>
-                                                        <td>
-                                                            <a id="detail" type="button" class="btn btn-outline-info btn-sm" data-toggle="modal" data-target="#modal-detail" data-id_ppiu="<?php echo $tampil['id_ppiu']; ?>" data-nama_ppiu="<?php echo $tampil['nama_ppiu']; ?>" data-username="<?php echo $tampil['username']; ?>" data-nama_kab_kota="<?php echo $tampil['nama_kab_kota']; ?>" data-status="<?php echo $tampil['status']; ?>" data-nomor_sk="<?php echo $tampil['nomor_sk']; ?>" data-tanggal_sk="<?php echo date('d-m-Y', strtotime($tampil['tanggal_sk'])); ?>" data-alamat="<?php echo $tampil['alamat']; ?>" data-nama_pimpinan="<?php echo $tampil['nama_pimpinan']; ?>" data-logo="<?php echo $tampil['logo']; ?>">
-                                                                <i class="fas fa-fw fa fa-eye"></i>
-                                                            </a>
-                                                        </td>
-                                                    </tr>
-                                                <?php
-                                                    $no++;
-                                                }
-
-                                                ?>
-                                            </tbody>
-                                        </table>
+                                                        echo $total_jemaah;
+                                                        ?>
+                                                    </div>
+                                                    <?php
+                                                    echo "Laki-laki : " . $total_jemaah_laki_laki . "<br>";
+                                                    echo "Wanita : " . $total_jemaah_wanita;
+                                                    ?>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-user-friends fa-2x text-gray-300"></i>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <!-- /.container-fluid -->
-                    <div class="modal fade" id="modal-detail">
-                        <div class="modal-dialog">
-                            <div class="modal-content card shadow mb-4">
-                                <div class="modal-header card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h4 class="modal-title m-0 font-weight-bold text-primary">Detail PPIU</h4>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body table-responsive card-body">
-                                    <center>
-                                        <img class="mb-5" id="gambar" style="width: 300px;">
-                                    </center>
-                                    <table class="table table-bordered no-margin">
-                                        <tbody>
-                                            <tr>
-                                                <th>ID PPIU</th>
-                                                <td><span id="id_ppiu"></span></td>
-                                            </tr>
-                                            <tr>
-                                                <th>Nama PPIU</th>
-                                                <td><span id="nama_ppiu"></span></td>
-                                            </tr>
-                                            <tr>
-                                                <th>Username</th>
-                                                <td><span id="username"></span></td>
-                                            </tr>
-                                            <tr>
-                                                <th>Kab/Kota</th>
-                                                <td><span id="nama_kab_kota"></span></td>
-                                            </tr>
-                                            <tr>
-                                                <th>Status</th>
-                                                <td><span id="status"></span></td>
-                                            </tr>
-                                            <tr>
-                                                <th>Nama Pimpinan</th>
-                                                <td><span id="nama_pimpinan"></span></td>
-                                            </tr>
-                                            <tr>
-                                                <th>Nomor SK</th>
-                                                <td><span id="nomor_sk"></span></td>
-                                            </tr>
-                                            <tr>
-                                                <th>Tanggal SK</th>
-                                                <td><span id="tanggal_sk"></span></td>
-                                            </tr>
-                                            <tr>
-                                                <th>Alamat</th>
-                                                <td><span id="alamat"></span></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <script>
-                        $(document).ready(function() {
-                            $(document).on('click', '#detail', function() {
-                                var id_ppiu = $(this).data('id_ppiu');
-                                var nama_ppiu = $(this).data('nama_ppiu');
-                                var username = $(this).data('username');
-                                var nama_kab_kota = $(this).data('nama_kab_kota');
-                                var status = $(this).data('status');
-                                var nomor_sk = $(this).data('nomor_sk');
-                                var tanggal_sk = $(this).data('tanggal_sk');
-                                var alamat = $(this).data('alamat');
-                                var nama_pimpinan = $(this).data('nama_pimpinan');
-                                var logo = $(this).data('logo');
-                                $('#id_ppiu').text(id_ppiu);
-                                $('#nama_ppiu').text(nama_ppiu);
-                                $('#username').text(username);
-                                $('#nama_kab_kota').text(nama_kab_kota);
-                                $('#status').text(status);
-                                $('#nomor_sk').text(nomor_sk);
-                                $('#tanggal_sk').text(tanggal_sk);
-                                $('#alamat').text(alamat);
-                                $('#nama_pimpinan').text(nama_pimpinan);
-                                $('#logo').text(logo);
-                                $('#gambar').attr('src', '../images/profile/' + logo);
-
-                            })
-                        })
-                    </script>
                 </div>
                 <!-- End of Main Content -->
 
@@ -218,13 +169,6 @@ include "session_kanwil.php";
         <a class="scroll-to-top rounded" href="#page-top">
             <i class="fas fa-angle-up"></i>
         </a>
-
-        <script>
-            $(document).ready(function() {
-                $('#example').DataTable();
-            });
-        </script>
-
 </body>
 
 </html>
