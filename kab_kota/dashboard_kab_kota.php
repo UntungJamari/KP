@@ -65,16 +65,17 @@ include "session_kab_kota.php";
                                                 <div class="col-auto">
                                                     <div class="h5 mb-2 mr-3 font-weight-bold text-gray-800">
                                                         <?php
-                                                        $query = mysqli_query($koneksi, "select * from ppiu");
+                                                        $id_kab_kota = $result['id_kab_kota'];
+                                                        $query = mysqli_query($koneksi, "select * from ppiu where id_kab_kota=$id_kab_kota");
                                                         $total_ppiu = mysqli_affected_rows($koneksi);
                                                         echo $total_ppiu;
                                                         ?>
                                                     </div>
                                                     <?php
-                                                    $query = mysqli_query($koneksi, "select * from ppiu where status='Pusat'");
+                                                    $query = mysqli_query($koneksi, "select * from ppiu where status='Pusat' and id_kab_kota=$id_kab_kota");
                                                     $total_ppiu_pusat = mysqli_affected_rows($koneksi);
                                                     echo "Pusat : " . $total_ppiu_pusat . "<br>";
-                                                    $query = mysqli_query($koneksi, "select * from ppiu where status='Cabang'");
+                                                    $query = mysqli_query($koneksi, "select * from ppiu where status='Cabang' and id_kab_kota=$id_kab_kota");
                                                     $total_ppiu_cabang = mysqli_affected_rows($koneksi);
                                                     echo "Cabang : " . $total_ppiu_cabang;
                                                     ?>
@@ -99,7 +100,7 @@ include "session_kab_kota.php";
                                                 <div class="col-auto">
                                                     <div class="h5 mb-2 mr-3 font-weight-bold text-gray-800">
                                                         <?php
-                                                        $query = mysqli_query($koneksi, "select * from pengawasan");
+                                                        $query = mysqli_query($koneksi, "select * from ppiu, pengawasan where ppiu.id_ppiu=pengawasan.id_ppiu and ppiu.id_kab_kota=$id_kab_kota");
                                                         $total_pengawasan = mysqli_affected_rows($koneksi);
                                                         echo $total_pengawasan;
                                                         ?>
@@ -125,7 +126,7 @@ include "session_kab_kota.php";
                                                 <div class="col-auto">
                                                     <div class="h5 mb-2 mr-3 font-weight-bold text-gray-800">
                                                         <?php
-                                                        $query = mysqli_query($koneksi, "select sum(jumlah_jemaah_laki_laki) as total_jemaah_laki_laki, sum(jumlah_jemaah_wanita) as total_jemaah_wanita  from pengawasan");
+                                                        $query = mysqli_query($koneksi, "select sum(jumlah_jemaah_laki_laki) as total_jemaah_laki_laki, sum(jumlah_jemaah_wanita) as total_jemaah_wanita  from pengawasan, ppiu where ppiu.id_ppiu=pengawasan.id_ppiu and ppiu.id_kab_kota=$id_kab_kota");
                                                         $result = mysqli_fetch_assoc($query);
 
                                                         $total_jemaah_laki_laki = $result['total_jemaah_laki_laki'];
