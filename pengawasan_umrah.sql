@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 21, 2022 at 09:07 AM
+-- Generation Time: Oct 31, 2022 at 07:37 AM
 -- Server version: 10.4.19-MariaDB
 -- PHP Version: 8.0.6
 
@@ -103,6 +103,35 @@ INSERT INTO `kemenag_kab_kota` (`id_kemenag_kab_kota`, `username`, `id_kab_kota`
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `pengawasan`
+--
+
+CREATE TABLE `pengawasan` (
+  `id_pengawasan` int(11) NOT NULL,
+  `hari` varchar(255) NOT NULL,
+  `tanggal` date NOT NULL,
+  `jam` time NOT NULL,
+  `id_ppiu` int(11) NOT NULL,
+  `izin` varchar(255) NOT NULL,
+  `jumlah_jemaah_laki_laki` int(11) NOT NULL,
+  `jumlah_jemaah_wanita` int(11) NOT NULL,
+  `tanggal_keberangkatan` date NOT NULL,
+  `tanggal_kepulangan` date NOT NULL,
+  `temuan_lapangan` varchar(255) NOT NULL,
+  `petugas_1` varchar(255) NOT NULL,
+  `petugas_2` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `pengawasan`
+--
+
+INSERT INTO `pengawasan` (`id_pengawasan`, `hari`, `tanggal`, `jam`, `id_ppiu`, `izin`, `jumlah_jemaah_laki_laki`, `jumlah_jemaah_wanita`, `tanggal_keberangkatan`, `tanggal_kepulangan`, `temuan_lapangan`, `petugas_1`, `petugas_2`) VALUES
+(1, 'Senin', '2022-10-03', '10:36:24', 1, 'aaaaaaaa', 19, 22, '2022-10-03', '2022-10-10', 'aaaaaaa', 'aaaaaaa', 'aaaaaaaaaaa');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `ppiu`
 --
 
@@ -124,7 +153,7 @@ CREATE TABLE `ppiu` (
 --
 
 INSERT INTO `ppiu` (`id_ppiu`, `username`, `nama_ppiu`, `id_kab_kota`, `status`, `nomor_sk`, `tanggal_sk`, `alamat`, `nama_pimpinan`, `logo`) VALUES
-(1, 'bap_bkt', 'PT. Bonita Anugerah Pratama', 13, 'Pusat', 'No. U.81 Tahun 2020', '2020-03-31', 'Bawah Kantor Dinas Pasar No. 4 Pasar Simpang Aur Bukittinggi Tlp.0752-32520 Fax.0752-32560', NULL, 'default2.png'),
+(1, 'bap_bkt', 'PT. Bonita Anugerah Pratama', 13, 'Pusat', 'No. U.81 Tahun 2020', '2022-10-28', 'Bawah Kantor Dinas Pasar No. 4 Pasar Simpang Aur Bukittinggi Tlp.0752-32520 Fax.0752-32560', '', '1.png'),
 (2, 'ram_bkt', 'PT. Rizkia Amanah Mandiri', 13, 'Pusat', 'No. U. 499 Tahun 2020', '2020-12-06', 'Jl. Soekarno Hatta No. 117 RT 002 RW 003 Kel. Manggis Ganting Kec. Mandiangin Koto Selayan Kota Bukittinggi', NULL, 'default.png'),
 (3, 'mftt_agm', 'PT. Mahabbah Family Tour dan Travel', 1, 'Pusat', 'No. 9120005970756 Tahun 2022', '2022-01-27', 'Jalan Lintas Lubuk Basung Bukittinggi Jorong Lubuk Anyir RT/RW 00/00 Kel. Bayua Kec. Tanjung Raya Kab. Agam', NULL, 'default.png'),
 (4, 'ahw_pasbar', 'PT. Azra Humaira Wisata', 7, 'Pusat', 'No.410 Tahun 2020', '2020-11-08', 'JI. Jenderal  Sudirman Jorong Simpang Ampek_Lingkuang Aua Kec.Pasaman Kab.Pasaman Barat', NULL, 'default.png'),
@@ -173,7 +202,7 @@ INSERT INTO `user` (`username`, `password`, `level`) VALUES
 ('ajt_pdg', '$2y$10$M.CiNL0F4wwGnJIxK.TfAeJcdqjADcAZ./ImpiJFZzzGrLOKIlB1u', 'ppiu'),
 ('amu_pdg', '$2y$10$w.3Gn45F28mR6eYjlGMf5ONtFtRgTo2w.wV..f3OyFrxf5KUDCETy', 'ppiu'),
 ('anr_pdg', '$2y$10$QfHJJWO8JuqG7okqQ/ijJ.CeHA0J8L/Wj/RGo7SiC4TCimSbeBAp2', 'ppiu'),
-('bap_bkt', '$2y$10$r/UG/wB8nv5uXZINlaIlDuQnZEWjCmJ3rqQxNEZEDvFZvwnFD/K0G', 'ppiu'),
+('bap_bkt', '$2y$10$IZftQpG9uU583y0rFbYn4.Z.HIGkM2So0XFYDqkNQwyMczLWSpsQu', 'ppiu'),
 ('bpwaza_pdg', '$2y$10$5./6RUN2lFr2P59x73ETPOsxkbDUs.xL4HDuam5DJTqDjXkisLZGa', 'ppiu'),
 ('bsm_pdgpj', '$2y$10$iGWTakFkyAdjfmMMv9UPd.v6DjGcDVyDNfwNQPPLn390Km0d3UNfm', 'ppiu'),
 ('cbm_pdg', '$2y$10$hOJkKVbeobFY1WJWb79jtOaL0kG0bqA5cK36OrMVlCKVRMwy1OCGG', 'ppiu'),
@@ -182,7 +211,7 @@ INSERT INTO `user` (`username`, `password`, `level`) VALUES
 ('kanwil', '$2y$10$4Atgs7OOtJP/Yrvuup4aZOmHRJsWDkpQgR7wpg1iY3W9ymzSCmOyi', 'kanwil'),
 ('kemenag_50kota', '$2y$10$InCbX8CldgUad.X4FEZmae8gIe0CTXGLNfVXBImVdVyEUu.wYf6DG', 'kab/kota'),
 ('kemenag_agam', '$2y$10$VRSlG.Z9HkWCF9xbHFbsOu6n4XxcNWNxdNgp992MtBkspVnjJ4HAW', 'kab/kota'),
-('kemenag_bukittinggi', '$2y$10$mvcR4MCT2Z27dkX0aZzJQewa/c4kO4x9jq3qkhZq2A.BrgGH1Rgy2', 'kab/kota'),
+('kemenag_bukittinggi', '$2y$10$fimR17ny/v5svbjpmTVS..DmptC8Dc9yWcAtpKr5aFCv8x7bat.ka', 'kab/kota'),
 ('kemenag_dharmasraya', '$2y$10$CZEaZ.z1eL8FLAKkS1DFH.hY/o8cal.BUTrrq1EQdMdJE/Nl70QNe', 'kab/kota'),
 ('kemenag_mentawai', '$2y$10$vXaCETnUB2zd/qG7/EUkCeGMWh5s9v2twibgmyI5snk.KeqdWb7Ke', 'kab/kota'),
 ('kemenag_padang', '$2y$10$t80E1.rGa5UgBJkLQyOJO.bNLa3FexluEu5P8xiyBSTEb5TUoCWou', 'kab/kota'),
@@ -240,6 +269,13 @@ ALTER TABLE `kemenag_kab_kota`
   ADD KEY `id_kab_kota` (`id_kab_kota`);
 
 --
+-- Indexes for table `pengawasan`
+--
+ALTER TABLE `pengawasan`
+  ADD PRIMARY KEY (`id_pengawasan`),
+  ADD KEY `id_ppiu` (`id_ppiu`);
+
+--
 -- Indexes for table `ppiu`
 --
 ALTER TABLE `ppiu`
@@ -276,10 +312,16 @@ ALTER TABLE `kemenag_kab_kota`
   MODIFY `id_kemenag_kab_kota` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
+-- AUTO_INCREMENT for table `pengawasan`
+--
+ALTER TABLE `pengawasan`
+  MODIFY `id_pengawasan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT for table `ppiu`
 --
 ALTER TABLE `ppiu`
-  MODIFY `id_ppiu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id_ppiu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
 
 --
 -- Constraints for dumped tables
@@ -297,6 +339,12 @@ ALTER TABLE `kanwil`
 ALTER TABLE `kemenag_kab_kota`
   ADD CONSTRAINT `kemenag_kab_kota_ibfk_1` FOREIGN KEY (`username`) REFERENCES `user` (`username`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `kemenag_kab_kota_ibfk_2` FOREIGN KEY (`id_kab_kota`) REFERENCES `kab_kota` (`id_kab_kota`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `pengawasan`
+--
+ALTER TABLE `pengawasan`
+  ADD CONSTRAINT `pengawasan_ibfk_1` FOREIGN KEY (`id_ppiu`) REFERENCES `ppiu` (`id_ppiu`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `ppiu`
