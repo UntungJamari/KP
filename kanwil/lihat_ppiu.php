@@ -76,6 +76,7 @@ include "session_kanwil.php";
                                                 <tr>
                                                     <th style="width:20px">No.</th>
                                                     <th>Nama PPIU</th>
+                                                    <th>Kab/Kota</th>
                                                     <th>Status</th>
                                                     <th>Alamat</th>
                                                     <th style="width: 8%;">Aksi</th>
@@ -90,6 +91,7 @@ include "session_kanwil.php";
                                                     <tr>
                                                         <td><?php echo $no; ?></td>
                                                         <td><?php echo $tampil['nama_ppiu']; ?></td>
+                                                        <td><?php echo $tampil['nama_kab_kota']; ?></td>
                                                         <td><?php echo $tampil['status']; ?></td>
                                                         <td><?php echo $tampil['alamat']; ?></td>
                                                         <td>
