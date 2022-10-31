@@ -33,9 +33,13 @@ if (isset($_POST['simpan'])) {
 
                 if (in_array($ekstensi, $ekstensi_diperbolehkan) === true) {
                     if ($ukuran < 1044070) {
-                        move_uploaded_file($file_tmp, '../images/profile/' . $image);
                         $query = mysqli_query($koneksi, "insert into user values ('$username', '$password', 'ppiu');");
                         $query2 = mysqli_query($koneksi, "INSERT INTO `ppiu`(`username`, `nama_ppiu`, `id_kab_kota`, `status`, `nomor_sk`, `tanggal_sk`, `alamat`, `nama_pimpinan`) VALUES ('$username','$nama_ppiu',$id_kab_kota,'$status','$nomor_sk','$tanggal_sk','$alamat','$nama_pimpinan');");
+                        $query4 = mysqli_query($koneksi, "select * from ppiu where username='$username'");
+                        $result4 = mysqli_fetch_assoc($query4);
+                        $id_ppiu = $result4['id_ppiu'];
+                        $image = $id_ppiu . '.' . $ekstensi;
+                        move_uploaded_file($file_tmp, '../images/profile/' . $image);
                         $query3 = mysqli_query($koneksi, "update ppiu set logo='$image' where username='$username';");
                         if (($query == false) || ($query2 == false) || ($query3 == false)) {
                             $gagal = "Gagal Menyimpan Data!";

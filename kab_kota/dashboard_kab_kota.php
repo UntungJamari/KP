@@ -1,5 +1,22 @@
 <?php
 include "session_kab_kota.php";
+
+if ((isset($_GET['hapus_ppiu'])) && (isset($_GET['id_ppiu']))) {
+    $id_ppiu = $_GET['id_ppiu'];
+
+    $query = mysqli_query($koneksi, "select * from ppiu where id_ppiu=$id_ppiu");
+    if (mysqli_affected_rows($koneksi) == 0) {
+        $gagal = "Data yang Ingin Dihapus Sudah Tidak Ada!";
+    } else {
+        $query = mysqli_query($koneksi, "delete from ppiu where id_ppiu=$id_ppiu");
+
+        if ($query) {
+            $berhasil = "Berhasil Menghapus Data!";
+        } else {
+            $gagal = "Gagal Menghapus Data!";
+        }
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -60,6 +77,48 @@ include "session_kab_kota.php";
                                 <!-- Card Header - Dropdown -->
                                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                                     <h6 class="m-0 font-weight-bold text-primary">Daftar PPIU</h6>
+                                    <?php
+                                    if (isset($gagal)) {
+                                    ?>
+                                        <script>
+                                            swal.fire({
+                                                icon: 'error',
+                                                showConfirmButton: false,
+                                                timer: '2000',
+                                                title: '<?php echo $gagal; ?>'
+                                            })
+                                        </script>
+                                    <?php
+                                    }
+                                    ?>
+                                    <?php
+                                    if (isset($berhasil)) {
+                                    ?>
+                                        <script>
+                                            swal.fire({
+                                                icon: 'success',
+                                                showConfirmButton: false,
+                                                timer: '2000',
+                                                title: '<?php echo $berhasil; ?>'
+                                            })
+                                        </script>
+                                    <?php
+                                    }
+                                    ?>
+                                    <?php
+                                    if (isset($_GET['edit_id_ppiu'])) {
+                                    ?>
+                                        <script>
+                                            swal.fire({
+                                                icon: 'info',
+                                                showConfirmButton: false,
+                                                timer: '2000',
+                                                title: 'Silakan Pilih Terlebih Dahulu Data PPIU yang Ingin Diedit!'
+                                            })
+                                        </script>
+                                    <?php
+                                    }
+                                    ?>
                                 </div>
                                 <!-- Card Body -->
                                 <div class="card-body">
@@ -103,7 +162,7 @@ include "session_kab_kota.php";
                                                             <a href="edit_ppiu.php?id_ppiu=<?php echo $tampil['id_ppiu'] ?>" type="button" class="btn btn-outline-warning btn-sm">
                                                                 <i class="fas fa-fw fa fa-edit"></i>
                                                             </a>
-                                                            <a href="dashboard_kab_kota.php?id_ppiu=<?php echo $tampil['id_ppiu'] ?>" type="button" class="btn btn-outline-danger btn-sm">
+                                                            <a id="hapus-ppiu" type="button" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#modal-hapus" data-id_ppiu="<?php echo $tampil['id_ppiu']; ?>">
                                                                 <i class="fas fa-fw fa fa-trash-alt"></i>
                                                             </a>
                                                         </td>
@@ -228,6 +287,30 @@ include "session_kab_kota.php";
         <a class="scroll-to-top rounded" href="#page-top">
             <i class="fas fa-angle-up"></i>
         </a>
+
+        <script>
+            $(document).on('click', '#hapus-ppiu', function(e) {
+                e.preventDefault();
+
+                Swal.fire({
+                    title: 'Apakah Anda Yakin Ingin Menghapus PPIU Ini?',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#26c0fc',
+                    cancelButtonColor: '#f51d50',
+                    cancelButtonText: 'Tidak!',
+                    confirmButtonText: 'Ya!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+
+                        var id_ppiu = $(this).data('id_ppiu');
+
+                        window.location = 'dashboard_kab_kota.php?hapus_ppiu=true&id_ppiu=' + id_ppiu;
+
+                    }
+                })
+            })
+        </script>
 
         <script>
             $(document).ready(function() {

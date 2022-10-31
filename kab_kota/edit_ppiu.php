@@ -3,7 +3,9 @@ include "session_kab_kota.php";
 
 if (isset($_POST['simpan'])) {
 
-    if (empty($_POST["nama_ppiu"]) || empty($_POST["nama_pimpinan"]) || empty($_POST["status"]) || empty($_POST["nomor_sk"]) || empty($_POST["tanggal_sk"]) || empty($_POST["alamat"]) || empty($_POST["username"])) {
+    $id_ppiu = $_POST['id_ppiu'];
+
+    if (empty($_POST["nama_ppiu"]) || empty($_POST["status"]) || empty($_POST["nomor_sk"]) || empty($_POST["tanggal_sk"]) || empty($_POST["alamat"])) {
         $gagal = "Isian Dengan Tanda (*) Tidak Boleh Kososng!";
     } else {
         $nama_ppiu = $_POST['nama_ppiu'];
@@ -13,58 +15,68 @@ if (isset($_POST['simpan'])) {
         $nomor_sk = $_POST['nomor_sk'];
         $tanggal_sk = $_POST['tanggal_sk'];
         $alamat = $_POST['alamat'];
-        $username = $_POST['username'];
-        $password = "12345678";
-        $password = password_hash($password, PASSWORD_DEFAULT);
+
 
         $image = $_FILES['logo']['name'];
 
-        $query = mysqli_query($koneksi, "select * from user where username = '$username'");
-        if (mysqli_affected_rows($koneksi) == 0) {
+        if (!empty($image)) {
 
-            if (!empty($image)) {
+            $ekstensi_diperbolehkan = array('png', 'jpg', 'jpeg');
+            $image = $_FILES['logo']['name'];
+            $x = explode('.', $image);
+            $ekstensi = strtolower(end($x));
+            $ukuran = $_FILES['logo']['size'];
+            $file_tmp = $_FILES['logo']['tmp_name'];
+            $image = $id_ppiu . '.' . $ekstensi;
 
-                $ekstensi_diperbolehkan = array('png', 'jpg', 'jpeg');
-                $image = $_FILES['logo']['name'];
-                $x = explode('.', $image);
-                $ekstensi = strtolower(end($x));
-                $ukuran = $_FILES['logo']['size'];
-                $file_tmp = $_FILES['logo']['tmp_name'];
-
-                if (in_array($ekstensi, $ekstensi_diperbolehkan) === true) {
-                    if ($ukuran < 1044070) {
-                        move_uploaded_file($file_tmp, '../images/profile/' . $image);
-                        $query = mysqli_query($koneksi, "insert into user values ('$username', '$password', 'ppiu');");
-                        $query2 = mysqli_query($koneksi, "INSERT INTO `ppiu`(`username`, `nama_ppiu`, `id_kab_kota`, `status`, `nomor_sk`, `tanggal_sk`, `alamat`, `nama_pimpinan`) VALUES ('$username','$nama_ppiu',$id_kab_kota,'$status','$nomor_sk','$tanggal_sk','$alamat','$nama_pimpinan');");
-                        $query3 = mysqli_query($koneksi, "update ppiu set logo='$image' where username='$username';");
-                        if (($query == false) || ($query2 == false) || ($query3 == false)) {
-                            $gagal = "Gagal Menyimpan Data!";
-                        } else {
-                            $berhasil = "Berhasil Menyimapan Data!";
-                        }
+            if (in_array($ekstensi, $ekstensi_diperbolehkan) === true) {
+                if ($ukuran < 1044070) {
+                    move_uploaded_file($file_tmp, '../images/profile/' . $image);
+                    $query = mysqli_query($koneksi, "update ppiu set nama_ppiu='$nama_ppiu', nama_pimpinan='$nama_pimpinan', status='$status', nomor_sk='$nomor_sk', tanggal_sk='$tanggal_sk', alamat='$alamat', logo='$image' where id_ppiu='$id_ppiu'");
+                    if ($query) {
+                        $berhasil = "Berhasil Menyimapan Data!";
                     } else {
-                        $gagal = "Ukuran File Gambar Terlalu Besar";
+                        $gagal = "Gagal Menyimpan Data!";
                     }
                 } else {
-                    $gagal = "Ekstensi File Gambar Tidak Diperbolehkan";
+                    $gagal = "Ukuran File Gambar Terlalu Besar";
                 }
             } else {
-                $query = mysqli_query($koneksi, "insert into user values ('$username', '$password', 'ppiu');");
-
-                $query2 = mysqli_query($koneksi, "INSERT INTO `ppiu`(`username`, `nama_ppiu`, `id_kab_kota`, `status`, `nomor_sk`, `tanggal_sk`, `alamat`, `nama_pimpinan`) VALUES ('$username','$nama_ppiu',$id_kab_kota,'$status','$nomor_sk','$tanggal_sk','$alamat','$nama_pimpinan');");
-
-                if (($query == false) || ($query2 == false)) {
-                    $gagal = "Gagal Menyimpan Data!";
-                } else {
-                    $berhasil = "Berhasil Menyimapan Data!";
-                }
+                $gagal = "Ekstensi File Gambar Tidak Diperbolehkan";
             }
         } else {
-            $gagal = "Username $username sudah ada!";
+            $query = mysqli_query($koneksi, "update ppiu set nama_ppiu='$nama_ppiu', nama_pimpinan='$nama_pimpinan', status='$status', nomor_sk='$nomor_sk', tanggal_sk='$tanggal_sk', alamat='$alamat' where id_ppiu='$id_ppiu'");
+
+            if ($query) {
+                $berhasil = "Berhasil Menyimapan Data!";
+            } else {
+                $gagal = "Gagal Menyimpan Data!";
+            }
         }
     }
+
+    $_GET['id_ppiu'] = $id_ppiu;
 }
 
+if ((isset($_GET['reset_password'])) && (isset($_GET['username']))) {
+
+    $username = $_GET['username'];
+    $password = "12345678";
+    $password = password_hash($password, PASSWORD_DEFAULT);
+    $query = mysqli_query($koneksi, "update user set password='$password' where username='$username'");
+    if ($query) {
+        $berhasil = "Berhasil Menyimapan Data!";
+    } else {
+        $gagal = "Gagal Menyimpan Data!";
+    }
+    $query = mysqli_query($koneksi, "select * from ppiu where username='$username'");
+    $result = mysqli_fetch_assoc($query);
+    $_GET['id_ppiu'] = $result['id_ppiu'];
+}
+
+if (!isset($_GET['id_ppiu'])) {
+    header("location:dashboard_kab_kota.php?edit_id_ppiu=Kosong");
+}
 
 ?>
 <!DOCTYPE html>
@@ -170,7 +182,7 @@ if (isset($_POST['simpan'])) {
                                     $result = mysqli_fetch_assoc($query);
 
                                     ?>
-                                    <form class="row g-2 mt-3" action="tambah_ppiu.php" method="POST" id="form" enctype="multipart/form-data">
+                                    <form class="row g-2 mt-3" action="edit_ppiu.php" method="POST" id="form" enctype="multipart/form-data">
                                         <div class="col-md-12 form-group">
                                             <center>
                                                 <h4 class="mb-3">Data PPIU</h4>
@@ -180,10 +192,11 @@ if (isset($_POST['simpan'])) {
                                             <label for="input1" class="form-label">Nama PPIU</label><label style="color: red;">*</label>
                                             <input autofocus type="text" class="form-control" id="input1" name="nama_ppiu" value="<?php echo $result['nama_ppiu'] ?>">
                                             <input type="hidden" class="form-control" name="id_kab_kota" value="<?php echo $result['id_kab_kota']; ?>">
+                                            <input type="hidden" class="form-control" name="id_ppiu" value="<?php echo $result['id_ppiu']; ?>">
 
                                         </div>
                                         <div class="col-md-6 form-group">
-                                            <label for="input1" class="form-label">Nama Pimpinan</label><label style="color: red;">*</label>
+                                            <label for="input1" class="form-label">Nama Pimpinan</label>
                                             <input autofocus type="text" class="form-control" id="input1" name="nama_pimpinan" value="<?php echo $result['nama_pimpinan']; ?>">
                                         </div>
                                         <div class="col-md-6 form-group">
@@ -193,21 +206,19 @@ if (isset($_POST['simpan'])) {
 
                                                 if ($result['status'] == 'Pusat') {
                                                 ?>
-                                                    <option value="pusat" selected>Pusat</option>
-                                                    <option value="cabang">Cabang</option>
+                                                    <option value="Pusat" selected>Pusat</option>
+                                                    <option value="Cabang">Cabang</option>
 
                                                 <?php
                                                 } else {
                                                 ?>
-                                                    <option value="pusat">Pusat</option>
-                                                    <option value="cabang" selected>Cabang</option>
+                                                    <option value="Pusat">Pusat</option>
+                                                    <option value="Cabang" selected>Cabang</option>
 
                                                 <?php
                                                 }
 
                                                 ?>
-                                                <option value="pusat">Pusat</option>
-                                                <option value="cabang">Cabang</option>
                                             </select>
                                         </div>
                                         <div class="col-md-6 form-group">
@@ -245,19 +256,6 @@ if (isset($_POST['simpan'])) {
                                                 <img id="upload-img" height="0px">
                                             </center>
                                         </div>
-                                        <div class="col-md-12 form-group mt-5">
-                                            <center>
-                                                <h4 class="mb-3">Akun PPIU</h4>
-                                            </center>
-                                        </div>
-                                        <div class="col-md-6 form-group">
-                                            <label for="input1" class="form-label">Username</label><label style="color: red;">*</label>
-                                            <input autofocus type="text" class="form-control" id="input1" name="username" value="<?php echo $result['username']; ?>">
-                                        </div>
-                                        <div class="col-md-6 form-group">
-                                            <label for="input1" class="form-label">Password</label>
-                                            <input autofocus type="text" class="form-control" id="input1" name="password" placeholder="Default : 12345678" disabled>
-                                        </div>
                                         <div class="col-md-12 form-group">
                                             <center>
                                                 <button type="submit" class="btn btn-outline-primary btn-sm mt-5 mb-3" name="simpan" id="simpan">
@@ -265,6 +263,23 @@ if (isset($_POST['simpan'])) {
                                                     <span>Simpan</span>
                                                 </button>
                                             </center>
+                                        </div>
+                                    </form>
+                                    <hr>
+                                    <form class="row g-2 mt-3" action="edit_ppiu.php" method="POST" id="form" enctype="multipart/form-data" data-flag="0">
+                                        <div class="col-md-12 form-group mt-5">
+                                            <center>
+                                                <h4 class="mb-3">Akun PPIU</h4>
+                                            </center>
+                                        </div>
+                                        <div class="col-md-6 form-group">
+                                            <label for="input1" class="form-label">Username</label>
+                                            <input autofocus type="text" class="form-control" id="input1" value="<?php echo $result['username']; ?>" disabled>
+                                            <input autofocus type="hidden" class="form-control" id="input1" name="username" value="<?php echo $result['username']; ?>">
+                                        </div>
+                                        <div class="col-md-6 form-group">
+                                            <label for="input1" class="form-label">Reset Password</label>
+                                            <input type="submit" onclick="konfirmasi()" class="btn btn-primary btn-user btn-block" id="reset_password" name="reset_password" value="Default : 12345678">
                                         </div>
                                     </form>
                                 </div>
@@ -293,6 +308,26 @@ if (isset($_POST['simpan'])) {
         <a class="scroll-to-top rounded" href="#page-top">
             <i class="fas fa-angle-up"></i>
         </a>
+
+        <script>
+            $(document).on('click', '#reset_password', function(e) {
+                e.preventDefault();
+
+                Swal.fire({
+                    title: 'Apakah Anda Yakin Ingin Mereset Password?',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#26c0fc',
+                    cancelButtonColor: '#f51d50',
+                    cancelButtonText: 'Tidak!',
+                    confirmButtonText: 'Ya!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location = 'edit_ppiu.php?reset_password=true&username=<?php echo $result['username']; ?>'
+                    }
+                })
+            })
+        </script>
 
         <script>
             $(function() {
