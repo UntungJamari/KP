@@ -30,7 +30,7 @@ if ((isset($_GET['hapus_ppiu'])) && (isset($_GET['username']))) {
     <meta name="author" content="">
 
     <link rel="icon" type="image/png" href="../images/logo_kemenag.png">
-    <title>Dashboard</title>
+    <title>PPIU</title>
 
     <!-- Custom fonts for this template-->
     <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
