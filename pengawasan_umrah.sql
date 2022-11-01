@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 31, 2022 at 07:37 AM
+-- Generation Time: Nov 01, 2022 at 07:07 AM
 -- Server version: 10.4.19-MariaDB
 -- PHP Version: 8.0.6
 
@@ -98,7 +98,8 @@ CREATE TABLE `kemenag_kab_kota` (
 --
 
 INSERT INTO `kemenag_kab_kota` (`id_kemenag_kab_kota`, `username`, `id_kab_kota`, `nama_pimpinan`, `alamat`, `logo`) VALUES
-(1, 'kemenag_bukittinggi', 13, '', 'Jl. Bt. Ombilin II No.10, Belakang Balok, Kec. Aur Birugo Tigo Baleh, Kota Bukittinggi, Sumatera Barat 26136', 'logo_kemenag.png');
+(1, 'kemenag_bukittinggi', 13, '', 'Jl. Bt. Ombilin II No.10, Belakang Balok, Kec. Aur Birugo Tigo Baleh, Kota Bukittinggi, Sumatera Barat 26136', 'logo_kemenag.png'),
+(2, 'kemenag_dharmasraya', 2, '', 'Jl. Lintas Sumatera No.Km. 4, Sungai Kambut, Kec. Pulau Punjung, Kabupaten Dharmasraya, Sumatera Barat 27573', 'logo_kemenag.png');
 
 -- --------------------------------------------------------
 
@@ -127,7 +128,9 @@ CREATE TABLE `pengawasan` (
 --
 
 INSERT INTO `pengawasan` (`id_pengawasan`, `hari`, `tanggal`, `jam`, `id_ppiu`, `izin`, `jumlah_jemaah_laki_laki`, `jumlah_jemaah_wanita`, `tanggal_keberangkatan`, `tanggal_kepulangan`, `temuan_lapangan`, `petugas_1`, `petugas_2`) VALUES
-(1, 'Senin', '2022-10-03', '10:36:24', 1, 'aaaaaaaa', 19, 22, '2022-10-03', '2022-10-10', 'aaaaaaa', 'aaaaaaa', 'aaaaaaaaaaa');
+(1, 'Senin', '2022-10-03', '10:36:24', 1, 'aaaaaaaa', 19, 22, '2022-10-03', '2022-10-10', 'aaaaaaa', 'aaaaaaa', 'aaaaaaaaaaa'),
+(2, 'Selasa', '2022-10-04', '09:03:53', 21, 'sasasas', 0, 2, '2022-10-12', '2022-10-19', 'sssssss', 'sssss', 'sssssssss'),
+(3, 'Jumat', '2022-10-14', '21:13:00', 1, 'bbbbbbbb', 6, 8, '2022-10-10', '2022-10-24', 'bbbbbbb', 'bbbbbbb', 'bbbbbbbbbb');
 
 -- --------------------------------------------------------
 
@@ -153,8 +156,8 @@ CREATE TABLE `ppiu` (
 --
 
 INSERT INTO `ppiu` (`id_ppiu`, `username`, `nama_ppiu`, `id_kab_kota`, `status`, `nomor_sk`, `tanggal_sk`, `alamat`, `nama_pimpinan`, `logo`) VALUES
-(1, 'bap_bkt', 'PT. Bonita Anugerah Pratama', 13, 'Pusat', 'No. U.81 Tahun 2020', '2022-10-28', 'Bawah Kantor Dinas Pasar No. 4 Pasar Simpang Aur Bukittinggi Tlp.0752-32520 Fax.0752-32560', '', '1.png'),
-(2, 'ram_bkt', 'PT. Rizkia Amanah Mandiri', 13, 'Pusat', 'No. U. 499 Tahun 2020', '2020-12-06', 'Jl. Soekarno Hatta No. 117 RT 002 RW 003 Kel. Manggis Ganting Kec. Mandiangin Koto Selayan Kota Bukittinggi', NULL, 'default.png'),
+(1, 'bap_bkt', 'PT. Bonita Anugerah Pratamaa', 13, 'Cabang', 'No. U.81 Tahun 2020o', '2022-10-29', 'Bawah Kantor Dinas Pasar No. 4 Pasar Simpang Aur Bukittinggi Tlp.0752-32520 Fax.0752-32560o', 'a', '1.png'),
+(2, 'ram_bkt', 'PT. Rizkia Amanah Mandiri', 13, 'Pusat', 'No. U. 499 Tahun 2020', '2020-12-06', 'Jl. Soekarno Hatta No. 117 RT 002 RW 003 Kel. Manggis Ganting Kec. Mandiangin Koto Selayan Kota Bukittinggi', '', '2.png'),
 (3, 'mftt_agm', 'PT. Mahabbah Family Tour dan Travel', 1, 'Pusat', 'No. 9120005970756 Tahun 2022', '2022-01-27', 'Jalan Lintas Lubuk Basung Bukittinggi Jorong Lubuk Anyir RT/RW 00/00 Kel. Bayua Kec. Tanjung Raya Kab. Agam', NULL, 'default.png'),
 (4, 'ahw_pasbar', 'PT. Azra Humaira Wisata', 7, 'Pusat', 'No.410 Tahun 2020', '2020-11-08', 'JI. Jenderal  Sudirman Jorong Simpang Ampek_Lingkuang Aua Kec.Pasaman Kab.Pasaman Barat', NULL, 'default.png'),
 (5, 'sih_pdg', 'PT. Sianok Indah Holiday ', 14, 'Pusat', 'No. U.81 Tahun 2020', '2021-08-02', 'Jl. Prof. DR. Hamka No.44 RT.1 RW.2 Kelurahan Air Tawar Barat Kecamatan Padang Utara Kota Padang.', NULL, 'default.png'),
@@ -197,12 +200,13 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`username`, `password`, `level`) VALUES
+('', '', 'ppiu'),
 ('aftt_bkt', '$2y$10$pneYi2Pfc.CoDM8xek9tRu5rW4/1fKvgB7wml59cF8Nxl6jpHgsPW', 'ppiu'),
 ('ahw_pasbar', '$2y$10$BXYGxMqdTBqeDtlv7Hgncuc.ZnfRDnOnVGUZAJZQzRqtrXrfKTryq', 'ppiu'),
 ('ajt_pdg', '$2y$10$M.CiNL0F4wwGnJIxK.TfAeJcdqjADcAZ./ImpiJFZzzGrLOKIlB1u', 'ppiu'),
 ('amu_pdg', '$2y$10$w.3Gn45F28mR6eYjlGMf5ONtFtRgTo2w.wV..f3OyFrxf5KUDCETy', 'ppiu'),
 ('anr_pdg', '$2y$10$QfHJJWO8JuqG7okqQ/ijJ.CeHA0J8L/Wj/RGo7SiC4TCimSbeBAp2', 'ppiu'),
-('bap_bkt', '$2y$10$IZftQpG9uU583y0rFbYn4.Z.HIGkM2So0XFYDqkNQwyMczLWSpsQu', 'ppiu'),
+('bap_bkt', '$2y$10$ZJq0s.yPnwWrPNBMVOUOKuz5/vm4tMkzIGOqRrWIU5SveLzgBigJW', 'ppiu'),
 ('bpwaza_pdg', '$2y$10$5./6RUN2lFr2P59x73ETPOsxkbDUs.xL4HDuam5DJTqDjXkisLZGa', 'ppiu'),
 ('bsm_pdgpj', '$2y$10$iGWTakFkyAdjfmMMv9UPd.v6DjGcDVyDNfwNQPPLn390Km0d3UNfm', 'ppiu'),
 ('cbm_pdg', '$2y$10$hOJkKVbeobFY1WJWb79jtOaL0kG0bqA5cK36OrMVlCKVRMwy1OCGG', 'ppiu'),
@@ -309,13 +313,13 @@ ALTER TABLE `kanwil`
 -- AUTO_INCREMENT for table `kemenag_kab_kota`
 --
 ALTER TABLE `kemenag_kab_kota`
-  MODIFY `id_kemenag_kab_kota` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_kemenag_kab_kota` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `pengawasan`
 --
 ALTER TABLE `pengawasan`
-  MODIFY `id_pengawasan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_pengawasan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `ppiu`
