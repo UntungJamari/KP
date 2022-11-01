@@ -6,7 +6,7 @@ if (isset($_POST['simpan'])) {
     if (empty($_POST["nama_ppiu"]) || empty($_POST["status"]) || empty($_POST["nomor_sk"]) || empty($_POST["tanggal_sk"]) || empty($_POST["alamat"]) || empty($_POST["username"])) {
         $gagal = "Isian Dengan Tanda (*) Tidak Boleh Kososng!";
     } else {
-        $nama_ppiu = $_POST['nama_ppiu'];
+        $nama_ppiu = addslashes($_POST['nama_ppiu']);
         $id_kab_kota = $_POST['id_kab_kota'];
         $nama_pimpinan = $_POST['nama_pimpinan'];
         $status = $_POST['status'];
