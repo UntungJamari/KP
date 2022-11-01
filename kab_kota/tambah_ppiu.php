@@ -186,8 +186,8 @@ if (isset($_POST['simpan'])) {
                                             <label for="input2" class="form-label">Status</label><label style="color: red;">*</label>
                                             <select class="form-control" name="status" id="input2">
                                                 <option value="" selected disabled>Pilih Status</option>
-                                                <option value="pusat">Pusat</option>
-                                                <option value="cabang">Cabang</option>
+                                                <option value="Pusat">Pusat</option>
+                                                <option value="Cabang">Cabang</option>
                                             </select>
                                         </div>
                                         <div class="col-md-6 form-group">
