@@ -77,6 +77,7 @@ if ((isset($_GET['hapus_pengawasan'])) && (isset($_GET['id_pengawasan']))) {
                                 <!-- Card Header - Dropdown -->
                                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                                     <h6 class="m-0 font-weight-bold text-primary">Daftar Pengisian Blanko Pengawasan Umrah</h6>
+                                    <a href="export.php" target="_blank" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Export ke Excel</a>
                                     <?php
                                     if (isset($gagal)) {
                                     ?>
