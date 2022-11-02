@@ -1,7 +1,19 @@
 <?php
 include "session_kab_kota.php";
 
+$berhasil = false;
+
 if (isset($_POST['simpan'])) {
+
+    $nama_ppiu = addslashes($_POST['nama_ppiu']);
+    $nama_pimpinan = $_POST['nama_pimpinan'];
+    if (isset($_POST['status'])) {
+        $status = $_POST['status'];
+    }
+    $nomor_sk = $_POST['nomor_sk'];
+    $tanggal_sk = $_POST['tanggal_sk'];
+    $alamat = $_POST['alamat'];
+    $usernameee = $_POST['username'];
 
     if (empty($_POST["nama_ppiu"]) || empty($_POST["status"]) || empty($_POST["nomor_sk"]) || empty($_POST["tanggal_sk"]) || empty($_POST["alamat"]) || empty($_POST["username"])) {
         $gagal = "Isian Dengan Tanda (*) Tidak Boleh Kososng!";
@@ -45,6 +57,8 @@ if (isset($_POST['simpan'])) {
                             $gagal = "Gagal Menyimpan Data!";
                         } else {
                             $berhasil = "Berhasil Menyimapan Data!";
+
+                            // unset($nama_ppiu, $nama_pimpinan, $status, $nomor_sk, $tanggal_sk, $alamat, $usernameee);
                         }
                     } else {
                         $gagal = "Ukuran File Gambar Terlalu Besar";
@@ -145,7 +159,7 @@ if (isset($_POST['simpan'])) {
                                     }
                                     ?>
                                     <?php
-                                    if (isset($berhasil)) {
+                                    if ($berhasil == true) {
                                     ?>
                                         <script>
                                             swal.fire({
@@ -174,33 +188,75 @@ if (isset($_POST['simpan'])) {
                                         </div>
                                         <div class="col-md-12 form-group">
                                             <label for="input1" class="form-label">Nama PPIU</label><label style="color: red;">*</label>
-                                            <input autofocus type="text" class="form-control" id="input1" name="nama_ppiu">
+                                            <input autofocus type="text" class="form-control" id="input1" name="nama_ppiu" <?php
+                                                                                                                            if ($berhasil) {
+                                                                                                                            } else {
+                                                                                                                                if (isset($nama_ppiu)) {
+                                                                                                                                    echo 'value="' . $nama_ppiu . '"';
+                                                                                                                                }
+                                                                                                                            }
+                                                                                                                            ?>>
                                             <input type="hidden" class="form-control" name="id_kab_kota" value="<?php echo $result['id_kab_kota']; ?>">
 
                                         </div>
                                         <div class="col-md-6 form-group">
                                             <label for="input1" class="form-label">Nama Pimpinan</label>
-                                            <input autofocus type="text" class="form-control" id="input1" name="nama_pimpinan">
+                                            <input autofocus type="text" class="form-control" id="input1" name="nama_pimpinan" <?php
+                                                                                                                                if ($berhasil) {
+                                                                                                                                } else {
+                                                                                                                                    if (isset($nama_pimpinan)) {
+                                                                                                                                        echo 'value="' . $nama_pimpinan . '"';
+                                                                                                                                    }
+                                                                                                                                } ?>>
                                         </div>
                                         <div class="col-md-6 form-group">
                                             <label for="input2" class="form-label">Status</label><label style="color: red;">*</label>
                                             <select class="form-control" name="status" id="input2">
                                                 <option value="" selected disabled>Pilih Status</option>
-                                                <option value="Pusat">Pusat</option>
-                                                <option value="Cabang">Cabang</option>
+                                                <option value="Pusat" <?php if ($berhasil) {
+                                                                        } else {
+                                                                            if (isset($status)) {
+                                                                                if ($status == "Pusat") {
+                                                                                    echo 'selected';
+                                                                                }
+                                                                            }
+                                                                        } ?>>Pusat</option>
+                                                <option value="Cabang" <?php if ($berhasil) {
+                                                                        } else {
+                                                                            if (isset($status)) {
+                                                                                if ($status == "Cabang") {
+                                                                                    echo 'selected';
+                                                                                }
+                                                                            }
+                                                                        } ?>>Cabang</option>
                                             </select>
                                         </div>
                                         <div class="col-md-6 form-group">
                                             <label for="input1" class="form-label">Nomor SK</label><label style="color: red;">*</label>
-                                            <input autofocus type="text" class="form-control" id="input1" name="nomor_sk">
+                                            <input autofocus type="text" class="form-control" id="input1" name="nomor_sk" <?php if ($berhasil) {
+                                                                                                                            } else {
+                                                                                                                                if (isset($nomor_sk)) {
+                                                                                                                                    echo 'value="' . $nomor_sk . '"';
+                                                                                                                                }
+                                                                                                                            } ?>>
                                         </div>
                                         <div class="col-md-6 form-group">
                                             <label for="input1" class="form-label">Tanggal SK</label><label style="color: red;">*</label>
-                                            <input autofocus type="date" class="form-control" id="input1" name="tanggal_sk">
+                                            <input autofocus type="date" class="form-control" id="input1" name="tanggal_sk" <?php if ($berhasil) {
+                                                                                                                            } else {
+                                                                                                                                if (isset($tanggal_sk)) {
+                                                                                                                                    echo 'value="' . $tanggal_sk . '"';
+                                                                                                                                }
+                                                                                                                            } ?>>
                                         </div>
                                         <div class="col-md-12 form-group">
                                             <label for="validationCustom04" class="form-label">Alamat</label><label style="color: red;">*</label>
-                                            <textarea class="form-control" name="alamat" id="validationCustom04" cols="30" rows="3"></textarea>
+                                            <textarea class="form-control" name="alamat" id="validationCustom04" cols="30" rows="3"><?php if ($berhasil) {
+                                                                                                                                    } else {
+                                                                                                                                        if (isset($alamat)) {
+                                                                                                                                            echo $alamat;
+                                                                                                                                        }
+                                                                                                                                    } ?></textarea>
                                         </div>
                                         <div class="col-md-3 form-group">
                                             <label for="input1" class="form-label">Logo</label>
@@ -221,7 +277,12 @@ if (isset($_POST['simpan'])) {
                                         </div>
                                         <div class="col-md-6 form-group">
                                             <label for="input1" class="form-label">Username</label><label style="color: red;">*</label>
-                                            <input autofocus type="text" class="form-control" id="input1" name="username">
+                                            <input autofocus type="text" class="form-control" id="input1" name="username" <?php if ($berhasil) {
+                                                                                                                            } else {
+                                                                                                                                if (isset($usernameee)) {
+                                                                                                                                    echo 'value="' . $usernameee . '"';
+                                                                                                                                }
+                                                                                                                            } ?>>
                                         </div>
                                         <div class="col-md-6 form-group">
                                             <label for="input1" class="form-label">Password</label>
