@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 01, 2022 at 07:07 AM
+-- Generation Time: Nov 02, 2022 at 05:19 AM
 -- Server version: 10.4.19-MariaDB
 -- PHP Version: 8.0.6
 
@@ -181,7 +181,9 @@ INSERT INTO `ppiu` (`id_ppiu`, `username`, `nama_ppiu`, `id_kab_kota`, `status`,
 (23, 'mtt_bkt', 'PT. Musafir Tour & Travel ', 13, 'Cabang', '144 Tahun 2018', '2018-03-29', 'Jl. Veteran No. 27 RT.002/RW.002 Kel. Puhun Tembok Kec. Mandiangin Koto Selayan, Kota Bukittinggi ', NULL, 'default.png'),
 (24, 'rautt_bkt', 'PT. Raka Amal Utama Tours & Travel', 13, 'Cabang', '220 Tahun 2018', '2018-05-22', 'Jl. M. Syafe\'i No. 7 D RT. 03 RW. 01 Kel. Tarok Dipo Kec. Guguk Panjang Kota Bukittinggi', NULL, 'default.png'),
 (25, 'set_bkt', 'PT. Sela Express Tour ', 13, 'Cabang', '390 Tahun 2019', '2019-09-26', 'Jl. Hamka No. 25 Kel. Pakan Kurai Kec. Guguk Panjang Kota Bukiitinggi', NULL, 'default.png'),
-(26, 'aftt_bkt', 'PT. Al Falah Tour And Travel', 13, 'Cabang', '420 Tahun 2019', '2019-10-21', 'Jl. Syech Ibrahim Musa No. 1 RT. 01 RW. 01 Kel. Aur Tajungkang Tengah Sawah Kec. Guguk Panjang Bukittinggi', NULL, 'default.png');
+(26, 'aftt_bkt', 'PT. Al Falah Tour And Travel', 13, 'Cabang', '420 Tahun 2019', '2019-10-21', 'Jl. Syech Ibrahim Musa No. 1 RT. 01 RW. 01 Kel. Aur Tajungkang Tengah Sawah Kec. Guguk Panjang Bukittinggi', NULL, 'default.png'),
+(46, 'nswm_bkt', 'PT. Naila Syafa\'ah Wisata Mandiri', 13, 'Cabang', '305 Tahun 2021', '2021-06-22', 'Jl. Tangah Jua I Gang Cermai Kel. Aur Kuning Kec. Aur Birugo Tigo Baleh ', '', 'default.png'),
+(56, 'z', 'z', 13, 'Pusat', 'z', '0001-01-01', 'z', 'z', 'default.png');
 
 -- --------------------------------------------------------
 
@@ -200,7 +202,6 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`username`, `password`, `level`) VALUES
-('', '', 'ppiu'),
 ('aftt_bkt', '$2y$10$pneYi2Pfc.CoDM8xek9tRu5rW4/1fKvgB7wml59cF8Nxl6jpHgsPW', 'ppiu'),
 ('ahw_pasbar', '$2y$10$BXYGxMqdTBqeDtlv7Hgncuc.ZnfRDnOnVGUZAJZQzRqtrXrfKTryq', 'ppiu'),
 ('ajt_pdg', '$2y$10$M.CiNL0F4wwGnJIxK.TfAeJcdqjADcAZ./ImpiJFZzzGrLOKIlB1u', 'ppiu'),
@@ -234,6 +235,7 @@ INSERT INTO `user` (`username`, `password`, `level`) VALUES
 ('lci_pdg', '$2y$10$9B4.NlX/xjgIW2j.nOS6Mec8TiwPhXxR4Y/fiBLiCME4101IGsGn.', 'ppiu'),
 ('mftt_agm', '$2y$10$fM4OU3QqEuy5Z/zDAFpKLunABsypaT7xowgAYcklN9agkYXBQcfJi', 'ppiu'),
 ('mtt_bkt', '$2y$10$52bjQQfd3TECltrPXsDNdOn/OoVeP7RZiMY9KCfV6qEj2ioWb1fJu', 'ppiu'),
+('nswm_bkt', '$2y$10$5vVDXvgqQOuN6hgP2gk.j.5hnx/pCmISUO9fDu2HwsitV/2Yc9aHm', 'ppiu'),
 ('oad_pdg', '$2y$10$dwVvKJQtcS33NxBYkhSpbOefvroiQJ/4RAl7LTB57fs/G5Z8YeUCe', 'ppiu'),
 ('pwn_bkt', '$2y$10$5B2SGPpCXWbHN2kuKAjilui0P4QwEz9bZXlkdKF9B5J5A8xR6IvGi', 'ppiu'),
 ('pwn_pdg', '$2y$10$PW6Rg35/8UfyTca5JzZz3O6nj12dq95DrHkjkInsxv1r0p1epXZj2', 'ppiu'),
@@ -245,7 +247,8 @@ INSERT INTO `user` (`username`, `password`, `level`) VALUES
 ('sitt_pdg', '$2y$10$2CGm.Y1dT4721Hg66wDwkuka06AAVzqigWYnF28w8rMF9pg288tOS', 'ppiu'),
 ('sit_dhr', '$2y$10$4qXBd/EVmfUJisUlZgSI.etWhFXschH9H3DQvsosBJd59q8aFLoUe', 'ppiu'),
 ('tpw_pdg', '$2y$10$8A8CkqSIUvyshgrVpKHW3uVukIK3hKtLTL0Ro0WDZcKqGuG4wjDdC', 'ppiu'),
-('uhi_pdg', '$2y$10$oR7NOUWig3MSy8nsCoFL/u3db8Ph0CTNKi3xu9nfqfMnwI96y1pE6', 'ppiu');
+('uhi_pdg', '$2y$10$oR7NOUWig3MSy8nsCoFL/u3db8Ph0CTNKi3xu9nfqfMnwI96y1pE6', 'ppiu'),
+('z', '$2y$10$qTE4L2LBueqDwsYOjpwdEenRm1/SS08mkoyrmnO3gZJMhq3FknlvK', 'ppiu');
 
 --
 -- Indexes for dumped tables
@@ -325,7 +328,7 @@ ALTER TABLE `pengawasan`
 -- AUTO_INCREMENT for table `ppiu`
 --
 ALTER TABLE `ppiu`
-  MODIFY `id_ppiu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
+  MODIFY `id_ppiu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
 
 --
 -- Constraints for dumped tables
