@@ -109,7 +109,7 @@ include "session_kab_kota.php";
                                             </div>
                                         </div>
                                         <div class="col-auto">
-                                            <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                                            <i class="fas fa-clipboard-list fa-2x text-gray-300 mt-4"></i>
                                         </div>
                                     </div>
                                 </div>

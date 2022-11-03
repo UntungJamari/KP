@@ -34,48 +34,59 @@ if (isset($_POST['simpan'])) {
         $query = mysqli_query($koneksi, "select * from user where username = '$username'");
         if (mysqli_affected_rows($koneksi) == 0) {
 
-            if (!empty($image)) {
+            $query = mysqli_query($koneksi, "select * from ppiu where nama_ppiu = '$nama_ppiu' and status = '$status' and id_kab_kota = $id_kab_kota");
+            if (mysqli_affected_rows($koneksi) == 0) {
+                if (!empty($image)) {
 
-                $ekstensi_diperbolehkan = array('png', 'jpg', 'jpeg');
-                $image = $_FILES['logo']['name'];
-                $x = explode('.', $image);
-                $ekstensi = strtolower(end($x));
-                $ukuran = $_FILES['logo']['size'];
-                $file_tmp = $_FILES['logo']['tmp_name'];
+                    $ekstensi_diperbolehkan = array('png', 'jpg', 'jpeg');
+                    $image = $_FILES['logo']['name'];
+                    $x = explode('.', $image);
+                    $ekstensi = strtolower(end($x));
+                    $ukuran = $_FILES['logo']['size'];
+                    $file_tmp = $_FILES['logo']['tmp_name'];
 
-                if (in_array($ekstensi, $ekstensi_diperbolehkan) === true) {
-                    if ($ukuran < 1044070) {
-                        $query = mysqli_query($koneksi, "insert into user values ('$username', '$password', 'ppiu');");
-                        $query2 = mysqli_query($koneksi, "INSERT INTO `ppiu`(`username`, `nama_ppiu`, `id_kab_kota`, `status`, `nomor_sk`, `tanggal_sk`, `alamat`, `nama_pimpinan`) VALUES ('$username','$nama_ppiu',$id_kab_kota,'$status','$nomor_sk','$tanggal_sk','$alamat','$nama_pimpinan');");
-                        $query4 = mysqli_query($koneksi, "select * from ppiu where username='$username'");
-                        $result4 = mysqli_fetch_assoc($query4);
-                        $id_ppiu = $result4['id_ppiu'];
-                        $image = $id_ppiu . '.' . $ekstensi;
-                        move_uploaded_file($file_tmp, '../images/profile/' . $image);
-                        $query3 = mysqli_query($koneksi, "update ppiu set logo='$image' where username='$username';");
-                        if (($query == false) || ($query2 == false) || ($query3 == false)) {
-                            $gagal = "Gagal Menyimpan Data!";
+                    if (in_array($ekstensi, $ekstensi_diperbolehkan) === true) {
+                        if ($ukuran < 1044070) {
+                            $query = mysqli_query($koneksi, "insert into user values ('$username', '$password', 'ppiu');");
+                            $query2 = mysqli_query($koneksi, "INSERT INTO `ppiu`(`username`, `nama_ppiu`, `id_kab_kota`, `status`, `nomor_sk`, `tanggal_sk`, `alamat`, `nama_pimpinan`) VALUES ('$username','$nama_ppiu',$id_kab_kota,'$status','$nomor_sk','$tanggal_sk','$alamat','$nama_pimpinan');");
+                            $query4 = mysqli_query($koneksi, "select * from ppiu where username='$username'");
+                            $result4 = mysqli_fetch_assoc($query4);
+                            $id_ppiu = $result4['id_ppiu'];
+                            $image = $id_ppiu . '.' . $ekstensi;
+                            move_uploaded_file($file_tmp, '../images/profile/' . $image);
+                            $query3 = mysqli_query($koneksi, "update ppiu set logo='$image' where username='$username';");
+                            if (($query == false) || ($query2 == false) || ($query3 == false)) {
+                                $gagal = "Gagal Menyimpan Data!";
+                            } else {
+                                $berhasil = "Berhasil Menyimapan Data!";
+
+                                // unset($nama_ppiu, $nama_pimpinan, $status, $nomor_sk, $tanggal_sk, $alamat, $usernameee);
+                            }
                         } else {
-                            $berhasil = "Berhasil Menyimapan Data!";
-
-                            // unset($nama_ppiu, $nama_pimpinan, $status, $nomor_sk, $tanggal_sk, $alamat, $usernameee);
+                            $gagal = "Ukuran File Gambar Terlalu Besar";
                         }
                     } else {
-                        $gagal = "Ukuran File Gambar Terlalu Besar";
+                        $gagal = "Ekstensi File Gambar Tidak Diperbolehkan";
                     }
                 } else {
-                    $gagal = "Ekstensi File Gambar Tidak Diperbolehkan";
+                    $query = mysqli_query($koneksi, "insert into user values ('$username', '$password', 'ppiu');");
+
+                    $query2 = mysqli_query($koneksi, "INSERT INTO `ppiu`(`username`, `nama_ppiu`, `id_kab_kota`, `status`, `nomor_sk`, `tanggal_sk`, `alamat`, `nama_pimpinan`) VALUES ('$username','$nama_ppiu',$id_kab_kota,'$status','$nomor_sk','$tanggal_sk','$alamat','$nama_pimpinan');");
+
+                    if (($query == false) || ($query2 == false)) {
+                        $gagal = "Gagal Menyimpan Data!";
+                    } else {
+                        $berhasil = "Berhasil Menyimapan Data!";
+                    }
                 }
             } else {
-                $query = mysqli_query($koneksi, "insert into user values ('$username', '$password', 'ppiu');");
 
-                $query2 = mysqli_query($koneksi, "INSERT INTO `ppiu`(`username`, `nama_ppiu`, `id_kab_kota`, `status`, `nomor_sk`, `tanggal_sk`, `alamat`, `nama_pimpinan`) VALUES ('$username','$nama_ppiu',$id_kab_kota,'$status','$nomor_sk','$tanggal_sk','$alamat','$nama_pimpinan');");
+                $query = mysqli_query($koneksi, "select * from kab_kota where id_kab_kota='$id_kab_kota'");
+                $result = mysqli_fetch_assoc($query);
 
-                if (($query == false) || ($query2 == false)) {
-                    $gagal = "Gagal Menyimpan Data!";
-                } else {
-                    $berhasil = "Berhasil Menyimapan Data!";
-                }
+                $nama_kab_kota = $result['nama_kab_kota'];
+
+                $gagal = "$nama_ppiu Kantor $status Di $nama_kab_kota sudah ada!";
             }
         } else {
             $gagal = "Username $username sudah ada!";
